@@ -24,22 +24,16 @@ def from_list(elements):
     return root_node
 
 class Solution:
-    def __init__(self):
-        self.elements = []
 
-    def pre_traverse_v1(self, root):
+    def count(self, root):
         if root==None:
-            return
-        self.elements.append(root.val)
-        self.pre_traverse_v1(root.left)
-        self.pre_traverse_v1(root.right)
+            return 0
+        num_left = self.count(root.left)
+        num_right = self.count(root.right)
+        print(f"node {root.val} left:{num_left},right:{num_right}")
+        return 1+ num_left+num_right
 
-    def pre_traverse(self, root):
-        if root==None:
-            return []
-        return [root.val] + self.pre_traverse(root.left) + self.pre_traverse(root.right)
-    
 if __name__ == "__main__":
     test_data = [3,9,20,None,None,15,7]
     test_tree = from_list(test_data)
-    print(Solution().pre_traverse(test_tree))
+    print(Solution().count(test_tree))
