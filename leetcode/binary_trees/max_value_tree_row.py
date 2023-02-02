@@ -28,28 +28,24 @@ class Solution:
         self.elements = []
         self.level=0
 
-    def level_traverse(self, root):
+    def level_traverse_largest_value(self, root):
         if root == None:
-            return []
+            return
         temp_list = []
+        max_list = []
         temp_list.append(root)
-        self.elements.append(root.val)
         while(len(temp_list)!=0):
-            self.level+=1
-            print(f"level:{self.level}")
+            max_list.append(max([ele.val for ele in temp_list]))
             size = len(temp_list)
             for i in range(size):
-                ele = temp_list.pop()
+                ele = temp_list.pop(0)
                 if ele.left != None:
                     temp_list.append(ele.left)
-                    self.elements.append(ele.left.val)
                 if ele.right != None:
                     temp_list.append(ele.right)
-                    self.elements.append(ele.right.val)
-        return self.elements
-
+        return max_list
 
 if __name__ == "__main__":
-    test_data = [3,9,20,None,None,15,7]
+    test_data = [1,3,2,5,3,None,9]
     test_tree = from_list(test_data)
     print(Solution().level_traverse(test_tree))
