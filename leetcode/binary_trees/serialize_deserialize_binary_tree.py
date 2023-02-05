@@ -31,31 +31,29 @@ class Solution:
     def preorder_serialize(self, root):
         if root==None:
             self.elements.append(None)
-            return
+            return "None"
         self.elements.append(root.val)
         self.preorder_serialize(root.left)
         self.preorder_serialize(root.right)
-        return self.elements
+        return ",".join([str(ele) for ele in self.elements])
     
-    def preorder_deserialize(self, arr):
-        if len(arr)==0:
+    def preorder_deserialize(self, arr_str):
+        self.element = arr_str.split(",")
+        if len(self.element)==0:
             return
-        ele=arr.pop(0)
-        if ele==None:
-            root=TreeNode(ele)
-            return
+        ele=self.element.pop(0)
+        if ele=="None":
+            root=TreeNode(None)
+            return None
         root=TreeNode(ele)
-        root.left=self.preorder_deserialize(arr)
-        root.right=self.preorder_deserialize(arr)
+        root.left=self.preorder_deserialize(",".join([str(ele) for ele in self.element]))
+        root.right=self.preorder_deserialize(",".join([str(ele) for ele in self.element]))
         return root
 
 if __name__ == "__main__":
-    test_data = [1,2,3,None,None,4,5]
+    test_data = [None]
     test_tree = from_list(test_data)
     solution = Solution()
-    solution.preorder_serialize(test_tree)
-    print(solution.elements)
     solution1=Solution()
-    root = solution1.preorder_deserialize(solution.elements)
-    solution1.preorder_serialize(root)
-    print(solution1.elements)
+    solution3 = Solution()
+    print(solution3.preorder_serialize(solution1.preorder_deserialize(solution.preorder_serialize(test_tree))))
