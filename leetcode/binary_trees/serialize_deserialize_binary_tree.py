@@ -20,7 +20,6 @@ def from_list(elements):
         else:
             parent_node.right = node
         nodes.append(node)
-
     return root_node
 
 class Solution:
