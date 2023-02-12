@@ -26,7 +26,7 @@ def swap(arr, i, j):
 def partition(arr, left, right):
     pivot=left
     while(left<right):
-        while(left<right and arr[pivot]>arr[left]):
+        while(left<right and arr[pivot]>arr[left+1]):
             left+=1
         while(left<right and arr[pivot]<=arr[right]):
             right-=1
@@ -51,8 +51,26 @@ def quicksort(arr):
                 +[pivot]
                 +quicksort([element for element in arr[1:] if element >=pivot]))
 
+def find_kthlargest(arr, k):
+    if k>len(arr):
+        return -1
+    n=len(arr)
+    left=0
+    right=n-1
+    while(left<=right):
+        pivot=partition(arr, left, right)
+        if pivot>n-k:
+            right=pivot-1
+        elif pivot<n-k:
+            left=pivot+1
+        else:
+            return arr[pivot]
+    return -1
+
 if __name__ == "__main__":
     arr_test = [5,4,4,3,3,2,1]
     #arr_sorted = quicksort_v1(arr_test)
-    arr_sorted = quicksort_v2(arr_test, 0, len(arr_test)-1)
-    print(arr_sorted)
+    #arr_sorted = quicksort_v2(arr_test, 0, len(arr_test)-1)
+    #print(arr_sorted)
+    #print(partition(arr_test, 0, 4))
+    print(find_kthlargest(arr_test, 3))
