@@ -44,4 +44,19 @@ class Solution:
             p_fast=p_fast.next
             p_slow=p_slow.next
         return p_slow
-    
+
+    def find_intersection(self, node1, node2):
+        p1=node1
+        p2=node2
+        while(p1!=p2):
+            if p1==None:
+                p1=node2
+            else: p1=p1.next
+            if p2==None:
+                p2=node1
+            else: p2=p2.next
+            
+        return p1
+
+if __name__ == "__main__":
+    pass
