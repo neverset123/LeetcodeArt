@@ -32,4 +32,16 @@ class Solution:
                 i+=1
                 j-=1
             return True
+
+    def longestPalindrome(self, s: str) -> int:
+        from collections import Counter
+        res=0
+        sc=Counter(s)
+        for value in sc.values():
+            res+=value//2
+        if res*2<len(s):
+            return res*2+1
+        else:
+            return res*2
+            
     
