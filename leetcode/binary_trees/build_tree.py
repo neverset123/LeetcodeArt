@@ -66,4 +66,3 @@ if __name__ == "__main__":
     pre_order_arr = [3,9,20,15,7]
     in_order_arr = [9,3,15,20,7]
     print(Solution().buildBinaryTreePreIn(pre_order_arr, in_order_arr))
-    print([1,2,3].index(2))

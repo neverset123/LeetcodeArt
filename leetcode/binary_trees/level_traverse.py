@@ -48,4 +48,5 @@ class Solution:
 if __name__ == "__main__":
     test_data = [1,3,2,5,3,None,9]
     test_tree = from_list(test_data)
-    print(Solution().level_traverse(test_tree))
+    print(Solution().level_traverse_largest_value(test_tree))
+    print([[1,2,3], [4,5], [3,9]][::-1])
