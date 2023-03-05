@@ -14,3 +14,4 @@ class Solution:
 
 if __name__ == "__main__":
     print("test".find("a"))
+    print("E" in ["e"])

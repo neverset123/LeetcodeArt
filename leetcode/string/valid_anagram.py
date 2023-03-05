@@ -1,3 +1,4 @@
+#回文构词
 def is_anagram(s, t):
     return sorted(s) == sorted(t)
 
