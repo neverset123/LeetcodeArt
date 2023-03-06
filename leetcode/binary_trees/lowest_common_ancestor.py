@@ -21,25 +21,25 @@ def from_list(elements):
 
     return root_node
 
-def lca(root, val1, val2):
+def lca_two_node(root, val1, val2):
     if root==None:
         return
     if root.val==val1 or root.val==val2:
         return root
-    left=lca(root.left, val1, val2)
-    right=lca(root.right, val1, val2)
+    left=lca_two_node(root.left, val1, val2)
+    right=lca_two_node(root.right, val1, val2)
     if left!=None and right!=None:
         return root
     return left if left!=None else right
 
-def lca_v1(root, node_list):
+def lca_multi_node(root, node_list):
     if root==None:
         return
     vals_list=[node.val for node in node_list]
     if root.val in vals_list:
         return root
-    left=lca_v1(root.left, node_list)
-    right=lca_v1(root.right, node_list)
+    left=lca_multi_node(root.left, node_list)
+    right=lca_multi_node(root.right, node_list)
     if left!=None and right!=None:
         return root
     return left if left!=None else right
@@ -47,12 +47,14 @@ def lca_v1(root, node_list):
 class Solution:
     def __init__(self):
         self.existence=[0,0]
+        self.lca_node=None
     
     def lca_v2(self, root, p, q):
         node = self.find(root, p, q)
         if sum(self.existence)!=2:
             return 
-        else: return node
+        else: 
+            return node
 
     def find(self,root,p,q):
         if root==None:
@@ -74,10 +76,12 @@ class Solution:
         if root==None:
             return
         if root.val<min:
-            self.find_bst(root.left,min,max)
-        if root.val>max:
             self.find_bst(root.right, min, max)
-        return root
+        elif root.val>max:
+            self.find_bst(root.left, min, max)
+        if root.val>=min and root.val<=max:
+            self.lca_node=root
+        return self.lca_node
     
     def lca_bst(self, root, p, q):
         min_val=min(p.val,q.val)
@@ -92,5 +96,5 @@ if __name__ == "__main__":
     #print(lca_v1(test_tree, test_node_list).val)
     solution=Solution()
     #node=solution.lca_v2(test_tree, TreeNode(9), TreeNode(7))
-    node=solution.lca_bst(test_tree,TreeNode(6),TreeNode(1))
+    node=solution.lca_bst(test_tree,TreeNode(3),TreeNode(1))
     print(node.val)

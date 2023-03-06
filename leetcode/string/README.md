@@ -10,3 +10,9 @@ string.count(substring)
 
 ## find substring starting index
 string.find(substring)
+
+## ascill of letter
+ord(letter)
+chr(ascill_num)
+
+

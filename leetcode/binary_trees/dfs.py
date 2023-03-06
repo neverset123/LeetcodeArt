@@ -1,4 +1,5 @@
 from typing import Optional
+import sys
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -25,22 +26,19 @@ def from_list(elements):
 
 class Solution:
     def __init__(self):
-        self.elements = []
-
-    def pre_traverse_v1(self, root):
+        self.path=""
+        self.min_path=""
+    def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
         if root==None:
             return
-        self.elements.append(root.val)
-        self.pre_traverse_v1(root.left)
-        self.pre_traverse_v1(root.right)
-
-    def pre_traverse(self, root):
-        if root==None:
-            return []
-        return [root.val] + self.pre_traverse(root.left) + self.pre_traverse(root.right)
-    
-if __name__ == "__main__":
-    test_data = [3,9,20,None,None,15,7]
-    test_tree = from_list(test_data)
-    print(Solution().pre_traverse(test_tree))
-    print(min("abcde", "abc"))
+        self.path+=chr(97+root.val)
+        print(self.path)
+        if root.left==None and root.right==None:
+            if self.min_path=="":
+                self.min_path=self.path[::-1]
+            else:
+                self.min_path=min(self.min_path, self.path[::-1])
+        self.smallestFromLeaf(root.left)
+        self.smallestFromLeaf(root.right)
+        self.path=self.path[:-1]
+        return self.min_path

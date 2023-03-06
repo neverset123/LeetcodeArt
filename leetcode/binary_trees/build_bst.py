@@ -43,9 +43,17 @@ class Solution:
                     root.right=k
                     res.append(root)
         return res
-
+    
+    def build_balanced_bst(self, nums):
+        if not nums:
+            return None
+        mid = len(nums) // 2
+        root = TreeNode(nums[mid])
+        root.left = self.sortedArrayToBST(nums[:mid])
+        root.right = self.sortedArrayToBST(nums[mid+1:])
+        return root        
 
 if __name__ == "__main__":
-    n=5
+    n=0
     solution=Solution()
-    print(solution.build_bst(n))
+    print(solution.build_bst(5))

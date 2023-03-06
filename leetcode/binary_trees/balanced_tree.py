@@ -24,23 +24,19 @@ def from_list(elements):
     return root_node
 
 class Solution:
-    def __init__(self):
-        self.elements = []
-
-    def pre_traverse_v1(self, root):
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
         if root==None:
-            return
-        self.elements.append(root.val)
-        self.pre_traverse_v1(root.left)
-        self.pre_traverse_v1(root.right)
+            return True
+        if abs(self.max_depth(root.left)-self.max_depth(root.right))>1:
+            return False
+        left=self.isBalanced(root.left)
+        right=self.isBalanced(root.right)
+        return left & right 
 
-    def pre_traverse(self, root):
+    def max_depth(self, root):
         if root==None:
-            return []
-        return [root.val] + self.pre_traverse(root.left) + self.pre_traverse(root.right)
-    
-if __name__ == "__main__":
-    test_data = [3,9,20,None,None,15,7]
-    test_tree = from_list(test_data)
-    print(Solution().pre_traverse(test_tree))
-    print(min("abcde", "abc"))
+            return 0
+        left_max=self.max_depth(root.left)
+        right_max=self.max_depth(root.right)
+        return max(left_max, right_max)+1
+
