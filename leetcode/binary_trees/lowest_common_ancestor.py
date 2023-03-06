@@ -47,7 +47,6 @@ def lca_multi_node(root, node_list):
 class Solution:
     def __init__(self):
         self.existence=[0,0]
-        self.lca_node=None
     
     def lca_v2(self, root, p, q):
         node = self.find(root, p, q)
@@ -72,16 +71,14 @@ class Solution:
         
         return left if left!=None else right
 
-    def find_bst(self,root,min,max):
+    def find_bst(self,root,min_value,max_value):
         if root==None:
             return
-        if root.val<min:
-            self.find_bst(root.right, min, max)
-        elif root.val>max:
-            self.find_bst(root.left, min, max)
-        if root.val>=min and root.val<=max:
-            self.lca_node=root
-        return self.lca_node
+        if root.val<min_value:
+            return self.find_bst(root.right, min_value, max_value)
+        elif root.val>max_value:
+            return self.find_bst(root.left, min_value, max_value)
+        return root
     
     def lca_bst(self, root, p, q):
         min_val=min(p.val,q.val)
@@ -90,11 +87,10 @@ class Solution:
 
 
 if __name__ == "__main__":
-    test_data = [5,3,6,2,4,None,None,1]
+    test_data = [5,3,6,2,4,None,7,1]
     test_tree = from_list(test_data)
-    #test_node_list = [TreeNode(9), TreeNode(7)]
-    #print(lca_v1(test_tree, test_node_list).val)
     solution=Solution()
+    #node=lca_two_node(test_tree, 1, 4)
     #node=solution.lca_v2(test_tree, TreeNode(9), TreeNode(7))
     node=solution.lca_bst(test_tree,TreeNode(3),TreeNode(1))
     print(node.val)
