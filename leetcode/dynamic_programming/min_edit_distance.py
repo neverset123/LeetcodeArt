@@ -4,7 +4,7 @@ import sys
 class Solution:
     def minDistance(self, s1: str, s2: str) -> int:
         memo=[[sys.maxsize]*(len(s2)) for _ in range(len(s1))]
-
+        #dp 返回s1[0:i]和s2[0:j]的编辑次数
         def dp(s1, s2, i, j):
             if i==-1:
                 return j+1
@@ -27,8 +27,9 @@ class Solution:
             return memo[i][j]
         
         return dp(s1,s2,len(s1)-1, len(s2)-1)
-    
-    def minDistance(self, s1: str, s2: str) -> int:
+            
+
+    def minDistance_v1(self, s1: str, s2: str) -> int:
         m,n=len(s1),len(s2)
         dp=[[0]*(n+1) for _ in range(m+1)]
         for i in range(1, m+1):
