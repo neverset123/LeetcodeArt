@@ -1,5 +1,5 @@
 import sys
-from types import List
+from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:

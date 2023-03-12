@@ -1,6 +1,6 @@
 #对于前 i 个物品，当前背包的容量为 w，这种情况下可以装的最大价值是 dp[i][w]
 ##分为完全背包和子集背包
-from types import List
+from typing import List
 
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
