@@ -17,11 +17,12 @@ class Solution:
                             dp[i-1][j]+grid[i][j])
         return dp[m-1][n-1]
     
-    #从 grid[i][j] 到达终点（右下角）所需的最少生命值是 dp(grid, i, j)
+    
     def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
         m=len(dungeon)
         n=len(dungeon[0])
         memo=[[-1]*n for _ in range(m)]
+        #从 grid[i][j] 到达终点（右下角）所需的最少生命值是 dp(grid, i, j)
         def dp(dungeon, i, j):
             if i==m-1 and j==n-1:
                 return 1 if dungeon[i][j]>=0 else abs(dungeon[i][j])+1

@@ -8,29 +8,27 @@ class Solution:
         temp_dict=defaultdict(list)
         m=len(flights)
         for i in range(m):
-            if flights[i][1] in temp_dict:
+            if flights[i][1] not in temp_dict:
                 temp_dict[flights[i][1]]=[]
             temp_dict[flights[i][1]].append((flights[i][0], flights[i][2]))
         memo=[[sys.maxsize]*steps for _ in range(n)]
-        #dp返回出发点为s，剩余步数为step的最小花费
+        #dp返回终点为s，剩余步数为step的最小花费
         def dp(s, step):
             if s==src:
                 return 0
             if step<=0:
                 return -1
-            if memo[s][step]!=sys.maxsize:
-                return memo[s][step]
+            if memo[s][step-1]!=sys.maxsize: #step 以1开头，所以需要减1
+                return memo[s][step-1]
             res=sys.maxsize
             if s in temp_dict:
                 for item in temp_dict[s]:
                     next=dp(item[0], step-1)
                     if next!=-1:
                         res=min(res, item[1]+next)
-                    else:
-                        res=sys.maxsize
-            memo[s][step]=-1 if res==sys.maxsize else res
-            return memo[s][step] 
-        res=dp(src, steps)
+            memo[s][step-1]=-1 if res==sys.maxsize else res
+            return memo[s][step-1] 
+        res=dp(dst, steps)
         return res
 
 if __name__ == "__main__":
