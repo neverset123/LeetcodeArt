@@ -1,4 +1,5 @@
 #对于两个字符串求子序列的问题，都是用两个指针i和j分别在两个字符串上移动，大概率是动态规划思路
+
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         m,n=len(text1),len(text2)

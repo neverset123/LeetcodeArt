@@ -1,3 +1,6 @@
+#从第一行到最后一行的最小路径和
+#从左上角到右下角所需的最小生命值的路径
+
 from typing import List
 import sys
 

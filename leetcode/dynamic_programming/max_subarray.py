@@ -1,3 +1,5 @@
+#找到和最大的子数组， dp[i]是以nums[i]结尾的最大子数组和
+
 import sys
 from typing import List
 
