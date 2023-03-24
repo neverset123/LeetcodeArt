@@ -3,6 +3,7 @@
 from typing import List
 
 class Solution:
+    #将一个数组划分为两个和相等的子集
     def canPartition(self, nums: List[int]) -> bool:
         if sum(nums)%2==1:
             return False
@@ -12,13 +13,13 @@ class Solution:
             dp[i][0]=True
         for i in range(1, len(nums)+1):
             for j in range(1, sums+1):
-                if j<nums[i-1]:
+                if j<nums[i-1]: #未放入第i个物体
                     dp[i][j]=dp[i-1][j]
                 else:
                     dp[i][j]=dp[i-1][j-nums[i-1]] or dp[i-1][j]
         return dp[len(nums)][sums]
 
-    def change(self, amount: int, coins: List[int]) -> int:
+    def coinChange(self, amount: int, coins: List[int]) -> int:
         m=len(coins)
         dp=[[0]*(amount+1) for _ in range(m+1)]
         for i in range(m+1):
