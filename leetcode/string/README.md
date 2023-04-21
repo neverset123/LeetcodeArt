@@ -15,4 +15,7 @@ string.find(substring)
 ord(letter)
 chr(ascill_num)
 
+## convert string to list
+list(string)
+
 
