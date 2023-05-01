@@ -23,6 +23,7 @@ class Solution:
             fast+=1
         return slow
 
+    # move zeros to end of list
     def move_zeros(self, nums):
         if len(nums)==0:
             return

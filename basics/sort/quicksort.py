@@ -23,6 +23,7 @@ def swap(arr, i, j):
     arr[i]=arr[j]
     arr[j]=temp
 
+#partition list with pivot
 def partition(arr, left, right):
     pivot=left
     while(left<right):
