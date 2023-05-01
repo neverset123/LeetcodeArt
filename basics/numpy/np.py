@@ -56,3 +56,18 @@ np.ndenumerate()
 #sort matrix with column
 Z[Z[:,1].argsort()]
 
+## 拼接array
+np.hstack #水平拼接
+np.vstack #垂直拼接
+np.stack #axis参数指定新轴在结果尺寸中的索引, axis=0不切开，axis=1横着切开，axis=2竖着切开
+
+##叉乘， 点乘
+np.cross
+np.dot
+
+# 限制元素大小
+np.clip(a, a_min, a_max)
+
+# reshape array
+array.reshape(-1, 1)
+array[:, np.newaxis]
