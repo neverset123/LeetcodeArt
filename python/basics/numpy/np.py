@@ -1,15 +1,81 @@
 import numpy as np
 
-#创建array
+# 1. 创建array
 array = np.zeros(12)
-array_reshaped=array.reshape(2,6)
+array_reshaped=array.reshape(2,2,3)
 print(array_reshaped)
-print(array_reshaped[0,1])
+print(array_reshaped[:,0,1]) #打印第一行，第二列的所有元组
 print(array_reshaped[(array_reshaped>3) & (array_reshaped<6)])
+#或者
+np.array([np.arange(5), np.array(5)])
+#使用自定义数据类型
+T = np.dtype([('name', np.str_, 40), ('numitems', np.int32), ('price',np.float32)])
+np.array([("DVD", 42, 3.14),("Butter",13,2.72)],dtype=T)
 
-#获取memory size
-array_2d = np.zeros((10,10))
-print(array_2d.size*array_2d.itemsize)
+# 2.改变数组维度
+# 数组展平
+arr.ravel()
+arr.flatten()
+#改变维度大小
+arr.shape=(2,3)
+
+# 3. 数组组合
+#水平拼接， 增加列维度
+np.concatenate((a,b), axis=1)
+np.hstack((a,b))
+#垂直拼接，增加行维度
+np.concatenate((a,b), axis=0)
+np.vstack((a,b))
+# 深度组合
+np.dstack((a,b))
+# 列组合
+np.column_stack((a,b))
+np.stack((a,b), axis=1)  #axis参数指定新轴在结果尺寸中的索引, axis=0不切开，axis=1横着切开，axis=2竖着切开
+# 行组合
+np.row_stack((a,b))
+np.stack((a,b), axis=0)
+
+# 3. 数组分割
+#水平分割，使列维度消失，返回list
+np.hsplit(a,3)
+np.split(a,3,axis=1)
+#垂直分割, 使行维度消失，返回list
+np.vsplit(a,3)
+np.split(a,3,axis=0)
+#深度分割
+np.dsplit(a,3)
+
+
+# 4. 属性
+a.dtype
+a.shape
+a.ndim
+a.size
+a.itemsize
+a.nbytes
+c.flat #将多惟array展平为一维
+c.flat[[1,3]] #取展平后的第一和第三个元素
+c.tolist()
+
+# 5. 读写文件
+np.savetext(file_name, array)
+c,v=np.loadtxt('data.csv', delimiter=',', usecols=(6,7), unpack=True)
+
+# 6 常用函数
+#加权平均
+np.average(c, weights=v)
+#算数平均
+np.mean(c)
+#最大最小
+np.max()
+np.min()
+np.ptp(c) #最大值与最小值之间的差值
+#排序
+np.msort(c)
+#方差
+np.var(c)
+
+
 
 #获取numpy help
 #np.info(np.dot)
@@ -55,11 +121,6 @@ np.ndenumerate()
 
 #sort matrix with column
 Z[Z[:,1].argsort()]
-
-## 拼接array
-np.hstack #水平拼接
-np.vstack #垂直拼接
-np.stack #axis参数指定新轴在结果尺寸中的索引, axis=0不切开，axis=1横着切开，axis=2竖着切开
 
 ##叉乘， 点乘
 np.cross
