@@ -1,0 +1,5 @@
+cpp/bazel-bin
+cpp/bazel-cpp
+cpp/bazel-out
+cpp/bazel-bin
+cpp/bazel-testlogs
