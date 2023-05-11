@@ -1,3 +1,5 @@
+# 深度优先
+
 from typing import Optional
 import sys
 

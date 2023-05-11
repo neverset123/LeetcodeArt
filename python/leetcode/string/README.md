@@ -18,4 +18,5 @@ chr(ascill_num)
 ## convert string to list
 list(string)
 
-
+## compare string lexicographically
+min(str1, str2)

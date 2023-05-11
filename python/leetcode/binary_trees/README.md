@@ -7,4 +7,4 @@ from collections import defaultdict
 defaultdict(list)
 ## add two list
 list1.extend(list2)
-
+list1+=list2

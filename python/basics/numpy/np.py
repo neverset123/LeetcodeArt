@@ -68,6 +68,8 @@ np.savetext(file_name, array)
 c,v=np.loadtxt('data.csv', delimiter=',', usecols=(6,7), unpack=True)
 
 # 6 常用函数
+# 截断小数点位
+np.round(c)
 #加权平均
 np.average(c, weights=v)
 #算数平均
