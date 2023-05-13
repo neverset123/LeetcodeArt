@@ -1,31 +1,7 @@
 #对前中后序位置不敏感选择前序
 #中序位置主要用于BST, 遍历有序数组
 #需要用到子树返回值的，使用后序遍历
-
-from typing import Optional
-
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-def from_list(elements):
-    root_node = TreeNode(val=elements[0])
-    nodes = [root_node]
-    for i, x in enumerate(elements[1:]):
-        if x is None:
-            continue
-        parent_node = nodes[i // 2]
-        is_left = (i % 2 == 0)
-        node = TreeNode(val=x)
-        if is_left:
-            parent_node.left = node
-        else:
-            parent_node.right = node
-        nodes.append(node)
-
-    return root_node
+from utils import TreeNode, from_list
 
 class Solution:
     def __init__(self):
