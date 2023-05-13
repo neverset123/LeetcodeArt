@@ -1,3 +1,7 @@
+
+#垂直方向遍历二叉树
+#leetcode987
+
 from typing import List
 import collections
 
@@ -38,7 +42,7 @@ class Solution:
 
         dfs(root)
         ans = []
-        for x in sorted(seen):
+        for x in sorted(seen): # get keys in sorted order
             inner = []
             for y in sorted(seen[x]):
                 inner.extend(sorted(n for n in seen[x][y]))

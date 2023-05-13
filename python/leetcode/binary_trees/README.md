@@ -8,3 +8,8 @@ defaultdict(list)
 ## add two list
 list1.extend(list2)
 list1+=list2
+## sort dict
+sorted(dict) # get sorted dict keys
+sorted(dict.items()) # get sorted dict
+sorted(dict.values()) # get sorted dict values
+
