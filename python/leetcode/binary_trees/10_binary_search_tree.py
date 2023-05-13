@@ -1,4 +1,6 @@
 # 左子树上所有结点的值均小于它的根结点的值以及右子树上所有结点的值均大于它的根结点的值
+# 提供 logN 级别的增删查改效率
+# 可以与二分查找结构结合，进行快速查找
 
 from utils import TreeNode, from_list
 
@@ -17,10 +19,11 @@ class Solution:
         self.traverse(root.left)
         if self.preNode!=None and self.preNode.val>=root.val:
             self.valid=False
-        print(root.val)
         self.preNode=root
-        self.isValidBST(root.right)
+        print(root.val)
+        self.traverse(root.right)
 
+    # BST解题的通用遍历框架
     def search(self, root, target):
         if root==None:
             return
@@ -67,9 +70,10 @@ class Solution:
         return root if root.left == None else self.min(root.left)
 
 if __name__ == "__main__":
-    test_data = [5,3,6,2,4,None,None,1]
+    test_data = [5,3,7,2,4,None,None,1]
     test_tree = from_list(test_data)
     solution = Solution()
-    #solution.traverse(test_tree)
-    solution.delete(test_tree, 2)
+    solution.insert(test_tree, 6)
     solution.traverse(test_tree)
+    # solution.delete(test_tree, 2)
+    # solution.traverse(test_tree)

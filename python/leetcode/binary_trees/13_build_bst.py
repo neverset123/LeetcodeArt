@@ -1,30 +1,31 @@
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+# 构造二叉搜索树
+
+from utils import TreeNode
 
 class Solution:
     def __init__(self):
         self.memo={}
         self.trees=[]
 
-    def num_bst(self, n):
-        return self.count(1,n)
+    # num of BST can be built with [1...n]
+    def numBSTTrees(self, n):
+        return self.numBSTCount(1,n)
 
-    def count(self, left, right):
+    def numBSTCount(self, left, right):
         if (left, right) in self.memo:
             return self.memo[(left, right)]
         if left>=right:
             return 1
         sum_count = 0
         for i in range(left, right+1):
-            left_count=self.count(left,i-1)
-            right_count=self.count(i+1, right)
+            left_count=self.numBSTCount(left,i-1)
+            right_count=self.numBSTCount(i+1, right)
             sum_count+=left_count*right_count
+        self.memo[(left, right)]=sum_count
         return sum_count
     
-    def build_bst(self, n):
+    # return all the BST can be built with [1...n]
+    def generateBSTTrees(self, n):
         return self.build(1, n)
     
     def build(self, left, right):
@@ -44,9 +45,10 @@ class Solution:
                     res.append(root)
         return res
     
-    def build_balanced_bst(self, nums):
+    # build one balanced bst with sorted array
+    def sortedArrayToBST(self, nums):
         if not nums:
-            return None
+            return
         mid = len(nums) // 2
         root = TreeNode(nums[mid])
         root.left = self.sortedArrayToBST(nums[:mid])
@@ -56,4 +58,4 @@ class Solution:
 if __name__ == "__main__":
     n=0
     solution=Solution()
-    print(solution.build_bst(5))
+    print(solution.generateBSTTrees(5))
