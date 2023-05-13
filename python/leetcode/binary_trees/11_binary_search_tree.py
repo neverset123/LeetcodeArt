@@ -9,6 +9,7 @@ class Solution:
         self.valid=True
         self.preNode=None
 
+    # 通过中序遍历BST是否递增，判断BST有效性
     def isValidBST(self, root):
         self.traverse(root)
         return self.valid
