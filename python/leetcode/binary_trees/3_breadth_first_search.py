@@ -75,14 +75,6 @@ class Solution:
                 if ele.right != None:
                     temp_list.append(ele.right)
         return max_list
-    
-    def isCompleteTree(self, root: 'TreeNode') -> 'bool':
-        i, bfs = 0, [root]
-        while bfs[i]:
-            bfs.append(bfs[i].left)
-            bfs.append(bfs[i].right)
-            i += 1
-        return not any(bfs[i:])
 
 if __name__ == "__main__":
     # test_data = [1,3,2,5,3,None,9]

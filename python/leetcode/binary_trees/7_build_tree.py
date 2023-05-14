@@ -33,6 +33,17 @@ class Solution:
             root.right = self.constructFromPrePost(pre[cut+2:], post[cut+1:])
         return root
 
+    # build binary tree with max value in array as root
+    def constructMaximumBinaryTree(self, arr: List[int]) -> Optional[TreeNode]:
+        if not arr:
+            return
+        max_val = max(arr)
+        index = arr.index(max_val)
+        root = TreeNode(max_val)
+        root.left=self.constructMaximumBinaryTree(arr[:index])
+        root.right=self.constructMaximumBinaryTree(arr[index+1:])
+        return root 
+
 if __name__ == "__main__":
     pre_order_arr = [3,9,20,15,7]
     in_order_arr = [9,3,15,20,7]

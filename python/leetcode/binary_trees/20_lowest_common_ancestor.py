@@ -1,35 +1,17 @@
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-def from_list(elements):
-    root_node = TreeNode(val=elements[0])
-    nodes = [root_node]
-    for i, x in enumerate(elements[1:]):
-        if x is None:
-            continue
-        parent_node = nodes[i // 2]
-        is_left = (i % 2 == 0)
-        node = TreeNode(val=x)
-        if is_left:
-            parent_node.left = node
-        else:
-            parent_node.right = node
-        nodes.append(node)
-
-    return root_node
+from utils import TreeNode, from_list
 
 def lca_two_node(root, val1, val2):
     if root==None:
         return
+    #root本身是某一子树的根结点
     if root.val==val1 or root.val==val2:
         return root
     left=lca_two_node(root.left, val1, val2)
     right=lca_two_node(root.right, val1, val2)
+    #左右返回值都不为空，则当前节点为最近公共祖先
     if left!=None and right!=None:
         return root
+    
     return left if left!=None else right
 
 def lca_multi_node(root, node_list):

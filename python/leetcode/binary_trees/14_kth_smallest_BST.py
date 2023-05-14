@@ -5,20 +5,20 @@ class Solution:
         self.current_rank = 0
         self.rank_val = None
 
-    def in_traverse(self, root, rank):
+    def kthSmallestEleBST(self, root, rank):
         if root==None:
             return
-        self.in_traverse(root.left, rank)
+        self.kthSmallestEleBST(root.left, rank)
         self.current_rank+=1
         if self.current_rank==rank:
             self.rank_val = root.val
             return
-        self.in_traverse(root.right, rank)
+        self.kthSmallestEleBST(root.right, rank)
     
 if __name__ == "__main__":
     test_data = [5,3,6,2,4,None,None,1]
     rank = 3
     test_tree = from_list(test_data)
     solution = Solution()
-    solution.in_traverse(test_tree, rank)
+    solution.kthSmallestEleBST(test_tree, rank)
     print(solution.rank_val)

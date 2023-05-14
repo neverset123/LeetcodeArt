@@ -78,6 +78,7 @@ np.mean(c)
 np.max()
 np.min()
 np.ptp(c) #最大值与最小值之间的差值
+array.argmax() #返回最大值index
 #排序
 np.msort(c)
 #方差
