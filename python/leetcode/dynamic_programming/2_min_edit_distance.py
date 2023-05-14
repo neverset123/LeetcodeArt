@@ -2,6 +2,7 @@
 
 import sys
 class Solution:
+    #将s1转换为s2的最少操作数
     def minDistance(self, s1: str, s2: str) -> int:
         memo=[[sys.maxsize]*(len(s2)) for _ in range(len(s1))]
         #dp 返回s1[0:i]和s2[0:j]的编辑次数

@@ -21,7 +21,7 @@ class Solution:
         return dp[m-1][n-1]
     
     
-    def min_life(self, dungeon: List[List[int]]) -> int:
+    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
         m=len(dungeon)
         n=len(dungeon[0])
         memo=[[-1]*n for _ in range(m)]
