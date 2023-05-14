@@ -1,4 +1,7 @@
+# 生成全排列
+from typing import List
 import copy
+
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         res=[]

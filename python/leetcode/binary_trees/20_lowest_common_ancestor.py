@@ -11,13 +11,17 @@ def lca_two_node(root, val1, val2):
     #左右返回值都不为空，则当前节点为最近公共祖先
     if left!=None and right!=None:
         return root
-    
+    #两节点都不在以root为根的树中，直接返回None
+    if left==None and right==None:
+        return None
+    #只有一个节点存在于root为根的树中，返回该节点
     return left if left!=None else right
 
 def lca_multi_node(root, node_list):
     if root==None:
         return
     vals_list=[node.val for node in node_list]
+
     if root.val in vals_list:
         return root
     left=lca_multi_node(root.left, node_list)
@@ -53,7 +57,12 @@ class Solution:
         
         return left if left!=None else right
 
-    def find_bst(self,root,min_value,max_value):
+    def lca_bst(self, root, p, q):
+        min_val=min(p.val,q.val)
+        max_val=max(p.val, p.val)
+        return self.find_in_bst(root, min_val, max_val)
+
+    def find_in_bst(self,root,min_value,max_value):
         if root==None:
             return
         if root.val<min_value:
@@ -61,18 +70,13 @@ class Solution:
         elif root.val>max_value:
             return self.find_bst(root.left, min_value, max_value)
         return root
-    
-    def lca_bst(self, root, p, q):
-        min_val=min(p.val,q.val)
-        max_val=max(p.val, p.val)
-        return self.find_bst(root, min_val, max_val)
 
 
 if __name__ == "__main__":
     test_data = [5,3,6,2,4,None,7,1]
     test_tree = from_list(test_data)
     solution=Solution()
-    #node=lca_two_node(test_tree, 1, 4)
+    node=lca_two_node(test_tree, 1, 8)
     #node=solution.lca_v2(test_tree, TreeNode(9), TreeNode(7))
-    node=solution.lca_bst(test_tree,TreeNode(3),TreeNode(1))
+    # node=solution.lca_bst(test_tree,TreeNode(3),TreeNode(1))
     print(node.val)

@@ -1,39 +1,14 @@
+# next pointer points to next node in breadth first search of perfect binary tree
+
 from typing import Optional
-
-class TreeNode:
-    def __init__(self, val: int = 0, left: 'TreeNode' = None, right: 'TreeNode' = None, next: 'TreeNode' = None):
-        self.val = val
-        self.left = left
-        self.right = right
-        self.next = next
-
-def from_list(elements):
-    root_node = TreeNode(val=elements[0])
-    nodes = [root_node]
-    for i, x in enumerate(elements[1:]):
-        if x is None:
-            continue
-        parent_node = nodes[i // 2]
-        is_left = (i % 2 == 0)
-        node = TreeNode(val=x)
-        if is_left:
-            parent_node.left = node
-        else:
-            parent_node.right = node
-        nodes.append(node)
-
-    return root_node
+from utils import TreeNode, from_list
 
 class Solution:
-    def __init__(self):
-        self.elements = []
-        self.level=0
 
-    def connect_v1(self, root: 'Optional[TreeNode]') -> 'Optional[TreeNode]':
+    def connectNextToRightNode(self, root: 'Optional[TreeNode]') -> 'Optional[TreeNode]':
         if root==None:
             return 
-        temp_list = []
-        temp_list.append(root)
+        temp_list = [root]
         while(len(temp_list)!=0):
             size=len(temp_list)
             for i in range(size):
@@ -47,12 +22,12 @@ class Solution:
         return root
     
     #模拟三叉树遍历
-    def connect(self, root):
+    def connectNextToRightNode_v1(self, root):
         if root==None:
             return 
         self.traverse(root.left, root.right)
         return root
-    
+
     def traverse(self, node1, node2):
         if node1==None or node2==None:
             return
