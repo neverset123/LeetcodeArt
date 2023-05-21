@@ -1,4 +1,4 @@
-#dp记录在状态(i，j)下已进行的操作数
+#dp记录在状态(i，j)下已进行的操作数(删除，插入，替换)
 
 import sys
 class Solution:

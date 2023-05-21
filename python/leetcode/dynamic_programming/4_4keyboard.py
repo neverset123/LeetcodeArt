@@ -2,6 +2,7 @@
 
 class Solution:
     def maxA(self,m):
+        # dp[i] 表示 i 次操作后最多能显示多少个 A
         dp=[0]*(m+1)
         #最后一次按键要么是A要么是C-V
         for i in range(1, m+1):

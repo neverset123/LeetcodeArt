@@ -1,15 +1,19 @@
-#正则匹配算法，包括「.」通配符和「*」通配符, dp记录是s[i:]和p[j:]的匹配与否
+#正则匹配算法，包括「.」通配符和「*」通配符, 
+# 「.」可以匹配任意一个字符，「*」可以让之前的那个字符重复任意次数（包括 0 次）
+# dp记录是s[i:]和p[j:]的匹配与否
 
 class Solution:
+    # s为文本串，p为模式串
     def isMatch(self, s: str, p: str) -> bool:
         m=len(s)
         n=len(p)
         memo=[[-1]*n for _ in range(m)]
         def dp(s, p, i, j):
             # base case
-            if j==n:
+            if j==n: # 模式串匹配完
                 return i==m
-            if i==m:
+            if i==m: # 文本串匹配完
+                # 检查字符和*是否成对出现
                 if (n-j)%2==1:
                     return False
                 for k in range(j, n, 2):

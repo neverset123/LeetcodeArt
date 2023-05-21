@@ -6,6 +6,7 @@
 1. #2d array
 [[0]*n for _ in range(n)]
 不要用[[0]*len(s1)]*len(s2)!!
+2. 最大正整数是 sys.maxsize; 最小负整数是-sys.maxsize-1
 
 ## array properties
 #sort array

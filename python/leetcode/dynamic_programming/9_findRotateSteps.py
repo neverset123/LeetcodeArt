@@ -8,6 +8,7 @@ class Solution:
         m=len(ring)
         n=len(key)
         memo=[[0]*n for _ in range(m)]
+        # 创建哈希表
         ring_dict=defaultdict(list)
         for index, item in enumerate(ring):
             if item not in ring_dict:
@@ -21,7 +22,9 @@ class Solution:
                 return memo[i][j]
             res=sys.maxsize
             for k in ring_dict[key[j]]:
+                # 顺时针和逆时针转动的最小步数
                 steps=min(abs(k-i), abs(m-abs(k-i)))
+                # 转动steps次+一次确认
                 res=min(res, 1+steps+dp(ring,key,k,j+1))
             memo[i][j]=res
             return memo[i][j]
