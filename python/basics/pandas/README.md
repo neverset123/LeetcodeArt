@@ -17,4 +17,22 @@ concat是直接轴向拼接
 
 ## filtering
 
+## manipulating text
+1. 结合np可以实现基于其他column的条件值
+```
+condlist = [num_reviews == 0, num_reviews.between(1,5),num_reviews.between(5,15),num_reviews.between(15,40),num_reviews>40]
+choicelist = ['NO','FEW','SOME','MANY','A LOT']
+airbnb_search_details['reviews_qualification'] = np.select(condlist,choicelist)
+```
+2. apply(lambda x: x)
 
+## manipulate datetime
+1. string to datetime
+```
+pd.to_datetime("2020-02-10")
+```
+2. time difference
+```
+from datetime import timedelta
+timedelta(days=30)
+```
