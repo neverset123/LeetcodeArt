@@ -104,6 +104,7 @@ np.exp(c)
 #用指定值填充np array
 c.fill(1)
 #矩阵转换
+#numpy默认是row vector, 高维转置可以用arr.T;但是1D array转置只能用arr[:,None]或者np.array(features, ndmin=2).T
 c.T #转置
 c.I #逆矩阵
 
