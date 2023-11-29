@@ -103,6 +103,8 @@ np.convolve(weights, c)
 np.exp(c)
 #用指定值填充np array
 c.fill(1)
+#pading数组边缘, 用于修改array尺寸
+np.pad(arr, pad_width, mode)
 #矩阵转换
 #numpy默认是row vector, 高维转置可以用arr.T;但是1D array转置只能用arr[:,None]或者np.array(features, ndmin=2).T
 c.T #转置
@@ -152,7 +154,8 @@ eigenvalues, eigenvectors = np.linalg.eig(A) #求解特征值和特征向量
 U, Sigma, V = np.linalg.svd(A, full_matrices=False)# 用svd() 函数分解矩阵
 pseudoinv = np.linalg.pinv(A) #计算矩阵广义逆
 np.linalg.det(B) #计算矩阵行列式
-
+#flip data
+np.fliplr()
 
 
 #获取numpy help
@@ -190,6 +193,7 @@ print (T)
 
 #increase dimension
 #np.increse_dims
+np.expand_dims
 
 #转换数据类型
 np.astype()
