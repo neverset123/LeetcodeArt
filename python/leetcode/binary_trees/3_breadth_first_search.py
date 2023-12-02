@@ -68,13 +68,44 @@ class Solution:
         while(len(temp_list)!=0): #负责从上到下
             max_list.append(max([ele.val for ele in temp_list]))
             size = len(temp_list)
-            for i in range(size): #复制从左到右
+            for i in range(size): #负责从左到右
                 ele = temp_list.pop(0)
                 if ele.left != None:
                     temp_list.append(ele.left)
                 if ele.right != None:
                     temp_list.append(ele.right)
         return max_list
+    
+    # find min steps from start to goal in grid with obstacles
+    def cal_cell_value(self, grid, start, goal, cost):
+        delta = [[-1, 0 ], # go up
+            [ 0, -1], # go left
+            [ 1, 0 ], # go down
+            [ 0, 1 ]] # go right
+        if goal == start:
+            return 0
+        if grid[start[0]][start[1]] == 1:
+            return 99
+        m=len(grid)
+        n=len(grid[0])
+        cost_table = [[sys.maxsize]*n for _ in range(m)]
+        cost_table[start[0]][start[1]] = 0
+        temp_list = [start]
+        while(len(temp_list)!=0):
+            size = len(temp_list)
+            for i in range(size):
+                ele = temp_list.pop()
+                if ele == goal:
+                    return cost_table[goal[0]][goal[1]]
+                for opt in delta:
+                    if ele[0]+opt[0]>=0 and ele[0]+opt[0] <m and ele[1]+opt[1]>=0 and ele[1]+opt[1]<n and grid[ele[0]+opt[0]][ele[1]+opt[1]] !=1 and cost_table[ele[0]+opt[0]][ele[1]+opt[1]] ==sys.maxsize:
+                        cost_table[ele[0]+opt[0]][ele[1]+opt[1]] = cost_table[ele[0]][ele[1]] + cost
+                        temp_list.append([ele[0]+opt[0], ele[1]+opt[1]])
+        return cost_table[goal[0]][goal[1]]
+    
+    def compute_value(self, grid,goal,cost):
+        value = [[self.cal_cell_value(grid, [row, col], goal, cost) for col in range(len(grid[0]))] for row in range(len(grid))]
+        return value 
 
 if __name__ == "__main__":
     # test_data = [1,3,2,5,3,None,9]
