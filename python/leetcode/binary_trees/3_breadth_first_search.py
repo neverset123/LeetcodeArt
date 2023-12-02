@@ -78,6 +78,7 @@ class Solution:
     
     # find min steps from start to goal in grid with obstacles
     def cal_cell_value(self, grid, start, goal, cost):
+        import sys
         delta = [[-1, 0 ], # go up
             [ 0, -1], # go left
             [ 1, 0 ], # go down
