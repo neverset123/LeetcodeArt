@@ -27,6 +27,11 @@ T = np.dtype([('name', np.str_, 40), ('numitems', np.int32), ('price',np.float32
 np.array([("DVD", 42, 3.14),("Butter",13,2.72)],dtype=T)
 #创建矩阵，matrix是 ndarray 的子类，只能表示二维数据
 np.mat('1 2 3; 4 5 6; 7 8 9')
+# matrix转ndarray
+mat.A
+np.asarray(mat)
+#ndarray转matrix
+np.asmatrix(array)
 #通过c和d创建复合矩阵
 np.bmat('c d;c d') 
 

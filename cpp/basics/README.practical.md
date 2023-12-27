@@ -5,3 +5,19 @@ vec1[i]
 vecxd(i)
 3. MatrixXd
 matxd(i,j)
+
+## erase iterator in for loop
+
+```
+for (auto it = m.cbegin(); it != m.cend() /* not hoisted */; /* no increment */)
+{
+  if (must_delete)
+  {
+    m.erase(it++);    // or "it = m.erase(it)" since C++11
+  }
+  else
+  {
+    ++it;
+  }
+}
+```

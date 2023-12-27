@@ -1,4 +1,5 @@
 //最小二乘法只适合与误差较小的情况
+//RANSAC is commonly used for geometric verification and outlier rejection
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
