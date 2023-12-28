@@ -3,6 +3,8 @@ import numpy as np
 np.info(np.dot)
 
 # 1. 创建ndarray, np.array是创建ndarray的高层函数，np.ndarray是底层类的构造函数
+array = np.random.randint(10, size=(3,7)) #生成随机数
+array = np.random.random((3,7)) #生成[0,1)之间的随机数，也可以用np.random.rand(3,7)
 array = np.zeros(12)
 array = np.ones(12)
 array = np.repeat(1,5)
@@ -74,13 +76,13 @@ np.split(a,3,axis=0)
 np.dsplit(a,3)
 
 # 4. 属性
-a.dtype
-a.shape
-a.ndim
-a.size
-a.itemsize #每个元素所占字节数
-a.nbytes #arry所占总字节数
-c.tolist()
+array.dtype
+array.shape
+array.ndim
+array.size
+array.itemsize #每个元素所占字节数
+array.nbytes #arry所占总字节数
+array.tolist()
 
 # 5. 读写文件
 np.savetxt(fname, array, fmt='%d', delimiter=',')
@@ -135,7 +137,8 @@ np.pad(array, pad_width, mode)
 #numpy默认是row vector, 高维转置可以用arr.T;但是1D array转置只能用arr[:,None]或者np.array(features, ndmin=2).T
 c.T #转置
 c.I #逆矩阵
-
+#向量化
+np.vectorize(func)(args) #将只接受单个数值的func转换为接受array的函数
 
 #7.数组修剪与压缩
 c.clip(3,7) #将c中小于3的设为3， 大于7的设为7
@@ -202,3 +205,11 @@ zmax, zmin=array_random.max(), array_random.min()
 print((array_random-zmin)/(zmax-zmin))
 #两数组交集元素
 np.intersect1d(array1, array2)
+
+#12 筛选数据
+condlist = [num_reviews == 0, num_reviews.between(1,5),num_reviews.between(5,15),num_reviews.between(15,40),num_reviews>40]
+choicelist = ['NO','FEW','SOME','MANY','A LOT']
+np.select(condlist,choicelist)
+
+
+
