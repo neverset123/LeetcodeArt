@@ -16,3 +16,8 @@ array.remove(ele)
 #find index of ele
 array.index(ele)
 
+## list copy
+```
+#shallow copy
+[1,2,3].copy()
+```

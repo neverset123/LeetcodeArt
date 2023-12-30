@@ -36,6 +36,7 @@ np.asarray(mat)
 np.asmatrix(array)
 #通过c和d创建复合矩阵
 np.bmat('c d;c d') 
+array = s.values # pandas Series 转换为np array
 
 # 2.改变数组维度
 # 数组展平
