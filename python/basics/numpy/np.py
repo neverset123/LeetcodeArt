@@ -5,6 +5,7 @@ np.info(np.dot)
 # 1. 创建ndarray, np.array是创建ndarray的高层函数，np.ndarray是底层类的构造函数
 array = np.random.randint(10, size=(3,7)) #生成随机数
 array = np.random.random((3,7)) #生成[0,1)之间的随机数，也可以用np.random.rand(3,7)
+permutation = np.random.permutation(Y.shape[0]) #随机重新排序
 array = np.zeros(12)
 array = np.ones(12)
 array = np.repeat(1,5)
@@ -212,5 +213,6 @@ condlist = [num_reviews == 0, num_reviews.between(1,5),num_reviews.between(5,15)
 choicelist = ['NO','FEW','SOME','MANY','A LOT']
 np.select(condlist,choicelist)
 
+X_selected = array[np.argwhere(array1==1)] #用array1去筛选array
 
 
