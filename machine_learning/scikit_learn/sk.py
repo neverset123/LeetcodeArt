@@ -11,7 +11,8 @@ X_poly = poly_feat.fit_transform(X)
 testing_data = poly_feat.transform(X_test)
 poly_model = LinearRegression(fit_intercept = False).fit(X_poly, y)
 
-## regularization
+## L1 regularization 
+# lasso在线性回归损失函数基础上加入了L1正则化
 from sklearn.linear_model import Lasso
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
@@ -105,3 +106,76 @@ best_clf = grid_fit.best_estimator_
 best_clf.fit(X_train, y_train)
 best_train_predictions = best_clf.predict(X_train)
 best_test_predictions = best_clf.predict(X_test)
+
+##KMeans
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+import pandas as pd
+
+clusters = 5
+model = KMeans(clusters)
+df_ss = pd.DataFrame(StandardScaler().fit_transform(df), columns=[])
+df_mm = pd.DataFrame(MinMaxScaler().fit_transform(df), columns=[])
+model.fit(df_ss)
+model.predict(df_ss)
+
+## hierachical clustering
+from sklearn import datasets, cluster
+from scipy.cluster.hierarchy import dendrogram, ward, single
+import matplotlib.pyplot as plt
+
+clust = cluster.AgglomerativeClustering(n_clusters=3, linkage="ward")
+labels = clust.fit_predict(X)
+
+linkage_matrix = ward(X)
+dendrogram(linkage_matrix)
+plt.show()
+
+## DBSCAN
+from sklearn import datasets, cluster
+
+db = cluster.DBSCAN(eps=0.5, min_samples=5)
+db.fit(X)
+
+## GMM
+from sklearn import datasets, mixture
+
+gmm = mixture.GaussianMixture(n_components=3, covariance_type="full", init_params="kmeans")
+gmm.fit(X)
+clustering = gmm.predict(X)
+
+## ARI
+from sklearn.metrics import adjusted_rand_score
+score = adjusted_rand_score(pred, label)
+
+## silhouette_score
+from sklearn.metrics import silhouette_score
+silhouette_avg = silhouette_score(X, cluster_label)
+
+## PCA
+X = StandardScaler().fit_transform(data)
+pca = PCA(n)
+x_pca = pca.fit_transform(X)
+num_components = len(pca.explained_variance_ratio_)
+ind = np.arrange(num_components)
+vals = pca.explained_variance_ratio_
+cumvals = np.cumsum(vals)
+plt.plot(ind, cumvals)
+
+mat_data = np.asmatrix(pca.components_[index]).reshape(28, 28)
+plt.imshow(mat_data)
+
+## random projection
+# sklearn可以根据eps自动推算降维后的维度，eps越大，维度越低：也可以直接给定n_components参数
+from sklearn import random_projection
+rp = random_projection.SparseRandomProjection()
+rp1 = random_projection.GaussianRandomProjection()
+new_X = rp.fit_transform(X)
+
+## ICA
+from sklearn.decomposition import FastICA
+
+X = list(zip(signal_1, signal_2, signal_3))
+ica = FastICA(n_components=3)
+components = ica.fit_transform(X)
+
