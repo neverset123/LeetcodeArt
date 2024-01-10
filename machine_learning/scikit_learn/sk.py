@@ -113,11 +113,11 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import pandas as pd
 
 clusters = 5
-model = KMeans(clusters)
+kmeans_cluster = KMeans(n_clusters=clusters, random_state=123)
 df_ss = pd.DataFrame(StandardScaler().fit_transform(df), columns=[])
 df_mm = pd.DataFrame(MinMaxScaler().fit_transform(df), columns=[])
-model.fit(df_ss)
-model.predict(df_ss)
+kmeans_model = kmeans_cluster.fit(df_ss)
+kmeans_prediction = kmeans_model.predict(df_ss)
 
 ## hierachical clustering
 from sklearn import datasets, cluster
@@ -153,17 +153,19 @@ from sklearn.metrics import silhouette_score
 silhouette_avg = silhouette_score(X, cluster_label)
 
 ## PCA
+from sklearn.decomposition import PCA
+
 X = StandardScaler().fit_transform(data)
 pca = PCA(n)
 x_pca = pca.fit_transform(X)
 num_components = len(pca.explained_variance_ratio_)
-ind = np.arrange(num_components)
+ind = np.arange(num_components)
 vals = pca.explained_variance_ratio_
 cumvals = np.cumsum(vals)
 plt.plot(ind, cumvals)
 
 mat_data = np.asmatrix(pca.components_[index]).reshape(28, 28)
-plt.imshow(mat_data)
+plt.imshow(mat_data) #highlight important features
 
 ## random projection
 # sklearn可以根据eps自动推算降维后的维度，eps越大，维度越低：也可以直接给定n_components参数

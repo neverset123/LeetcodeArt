@@ -40,6 +40,7 @@ df.describe() # 查看数值型列的汇总统计
 s.astype(float) #转换数据类型，节省内存
 df.set_index('column_one') # 将某个字段设为索引，可接受列表参数，即设置多个索引
 df.reset_index("col1") # 将索引设置为col1字段，并将索引新设置为0,1,2...
+df.nunique(axis=0) #unique count in axis
 
 for index, row in df.iterrows(): #遍历
     print(f'Index: {index}, row: {row.values}') # row.values将不同column的数值组合为array
@@ -85,6 +86,11 @@ df["gender"].map({"man":1, "women":0}) #转换数据标签
 
 df['Close*'].gt(df['Open']) #逻辑运算
 
+#特征处理
+from sklearn.impute import SimpleImputer
+imp = SimpleImputer(missing_values=np.nan, strategy="mean")
+df_scaled = pd.DataFrame(imp.fit_transform(df), columns=df.columns)
+
 #数据统计
 df.sort_index() #进⾏索引排序
 df.sort_values(col1, ascending=False) # 按照列col1排序数据，默认升序排列
@@ -123,6 +129,7 @@ df.eval('A + @column_mean')
 #操作字符串
 s.str.upper()
 s.str.lower()
+s.str.strip()
 s.str.len() #读取每个元素字符串长度
 s.str.cat(sep=" ")
 s.str.replace('the', 'a')
@@ -150,6 +157,7 @@ df.plot.barh()
 df.plot.kde() #绘制密度曲线
 
 df.plot.hist()
+s.hist()
 df.plot.box()
 df.plot.scatter()
 

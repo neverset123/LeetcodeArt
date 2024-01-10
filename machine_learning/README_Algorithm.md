@@ -320,6 +320,9 @@ ${\rm Gap}(K) = E({\rm log}D_k) - {\rm log}D_k$
 - 使用kd树以及ball树对KNN计算优化
 - 并行计算
 
+## UMAP
+
+
 ## EM(Expectation Maximazation) 算法
 用最大似然估计法（MLE）求最大期望就是EM算法。常见的EM 算法有GMM 高斯混合模型和HMM 隐马尔科夫模型。kmeans是基于划分的聚类算法，GMM是基于模型的聚类算法，两者都属于EM过程。
 ### GMM

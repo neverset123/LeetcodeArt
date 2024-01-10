@@ -181,6 +181,9 @@ T = np.arctan2(Y,X)
 ##叉乘， 点乘
 np.cross(a,b)
 np.dot(a,b)
+#np.nan is not comparable to np.nan
+np.nan == np.nan #return False
+np.isnan(np.nan) #return True
 
 #11 线性代数
 #线性拟合
