@@ -108,38 +108,36 @@ best_train_predictions = best_clf.predict(X_train)
 best_test_predictions = best_clf.predict(X_test)
 
 ##KMeans
+#可以通过设定一系列n_clusters，然后通过score来选择最优的n_clusters
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import pandas as pd
-
 clusters = 5
-kmeans_cluster = KMeans(n_clusters=clusters, random_state=123)
 df_ss = pd.DataFrame(StandardScaler().fit_transform(df), columns=[])
 df_mm = pd.DataFrame(MinMaxScaler().fit_transform(df), columns=[])
-kmeans_model = kmeans_cluster.fit(df_ss)
+kmeans_model = KMeans(n_clusters=clusters, random_state=123).fit(df_ss)
 kmeans_prediction = kmeans_model.predict(df_ss)
+centers = kmeans_model.cluster_centers_[kmeans_prediction]
+score = kmeans_model.score(df_ss)
+
 
 ## hierachical clustering
 from sklearn import datasets, cluster
 from scipy.cluster.hierarchy import dendrogram, ward, single
 import matplotlib.pyplot as plt
-
 clust = cluster.AgglomerativeClustering(n_clusters=3, linkage="ward")
 labels = clust.fit_predict(X)
-
 linkage_matrix = ward(X)
 dendrogram(linkage_matrix)
 plt.show()
 
 ## DBSCAN
 from sklearn import datasets, cluster
-
 db = cluster.DBSCAN(eps=0.5, min_samples=5)
 db.fit(X)
 
 ## GMM
 from sklearn import datasets, mixture
-
 gmm = mixture.GaussianMixture(n_components=3, covariance_type="full", init_params="kmeans")
 gmm.fit(X)
 clustering = gmm.predict(X)
@@ -148,24 +146,50 @@ clustering = gmm.predict(X)
 from sklearn.metrics import adjusted_rand_score
 score = adjusted_rand_score(pred, label)
 
-## silhouette_score
+## silhouette_score(计算类内间距)
 from sklearn.metrics import silhouette_score
-silhouette_avg = silhouette_score(X, cluster_label)
+silhouette_avg = silhouette_score(X, cluster_predictions)
+
+## Calinski-Harabasz
+from sklearn.metrics import calinski_harabasz_score
+score = calinski_harabasz_score(X, cluster_predictions)
+
+## BIC
+from sklearn import mixture
+bic = []
+for i in range(1, 10):
+    gmm = mixture.GaussianMixture(n_components=i, covariance_type='full')
+    gmm.fit(X)
+    bic.append(gmm.bic(X))
+plt.plot(bic)
+
+## Dunn Index
+from sklearn.metrics import pairwise_distances
+def dunn(X, labels):
+    intra_dists = []
+    inter_dists = []
+    for i in range(len(np.unique(labels))):
+        cluster = X[np.where(labels == i)]
+        intra_dists.append(np.mean(pairwise_distances(cluster, metric='euclidean')))
+        for j in range(i+1, len(np.unique(labels))):
+            cluster_j = X[np.where(labels == j)]
+            inter_dists.append(np.mean(pairwise_distances(cluster, cluster_j, metric='euclidean')))
+    return min(inter_dists) / max(intra_dists)
+
 
 ## PCA
+#一般先不设置n_components，然后根据explained_variance_ratio_来决定n_components的值
 from sklearn.decomposition import PCA
-
 X = StandardScaler().fit_transform(data)
-pca = PCA(n)
+pca = PCA(n_components=n)
 x_pca = pca.fit_transform(X)
-num_components = len(pca.explained_variance_ratio_)
+num_components = len(pca.explained_variance_ratio_) #各个component的方差占比
 ind = np.arange(num_components)
 vals = pca.explained_variance_ratio_
 cumvals = np.cumsum(vals)
 plt.plot(ind, cumvals)
-
-mat_data = np.asmatrix(pca.components_[index]).reshape(28, 28)
-plt.imshow(mat_data) #highlight important features
+weights = pca.components_[index] #第index个component对应原特征的权重,权重正负代表正负相关，零代表不相关
+pca.inverse_transform(x_pca[5]) #将降维后的数据转换回原始数据
 
 ## random projection
 # sklearn可以根据eps自动推算降维后的维度，eps越大，维度越低：也可以直接给定n_components参数
@@ -176,7 +200,6 @@ new_X = rp.fit_transform(X)
 
 ## ICA
 from sklearn.decomposition import FastICA
-
 X = list(zip(signal_1, signal_2, signal_3))
 ica = FastICA(n_components=3)
 components = ica.fit_transform(X)

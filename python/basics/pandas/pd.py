@@ -50,8 +50,6 @@ for index, row in df.iterrows(): #遍历
 for row in df.itertuples(): #迭代器
     print(row)
 
-
-
 #选取数据
 df[col_name] #返回一列（series）
 df[[col_name1, col_name2]]
@@ -61,7 +59,6 @@ df.iloc[0,:] #loc是按索引,iloc参数只接受数字参数
 df.loc[0,:]
 df.at[5, "col1"]
 df.iat[5,0]
-
 df.isnull()
 df.notnull()
 
@@ -88,8 +85,12 @@ df['Close*'].gt(df['Open']) #逻辑运算
 
 #特征处理
 from sklearn.impute import SimpleImputer
-imp = SimpleImputer(missing_values=np.nan, strategy="mean")
-df_scaled = pd.DataFrame(imp.fit_transform(df), columns=df.columns)
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+imp = SimpleImputer(missing_values=np.nan, strategy="median")
+scaler = MinMaxScaler()
+df_imp = pd.DataFrame(imp.fit_transform(df), columns=df.columns)
+df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+df.apply(lambda x: np.log(x)) #用log处理倾斜数据
 
 #数据统计
 df.sort_index() #进⾏索引排序

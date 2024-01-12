@@ -67,6 +67,7 @@ np.stack((a,b), axis=1)  #axis参数指定新轴在结果尺寸中的索引, axi
 np.row_stack((a,b)) #将一维(N,)改变为(1,N),然后沿行拼接
 np.stack((a,b), axis=0)
 
+
 # 3. 数组分割
 #水平分割，使列维度消失，返回list
 np.hsplit(a,3)
@@ -141,6 +142,8 @@ c.T #转置
 c.I #逆矩阵
 #向量化
 np.vectorize(func)(args) #将只接受单个数值的func转换为接受array的函数
+# count unique values in array
+np.unique(array, return_counts=True)
 
 #7.数组修剪与压缩
 c.clip(3,7) #将c中小于3的设为3， 大于7的设为7

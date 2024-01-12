@@ -335,9 +335,9 @@ b(i): 样本点到最近簇中每个样本距离的均值
 取值范围为[-1, 1]，值越大代表样本点所在的簇结构与其最近簇结构之间的距离越远，聚类结果越好。
 
 
-- Calinski-Harabasz
+- Calinski-Harabasz 
 
-- BIC
+- Bayes Information Criterion（BIC）
 
 - Dunn Index
 
