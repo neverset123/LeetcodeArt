@@ -1,3 +1,10 @@
+## Encoding
+# from sklearn.preprocessing import LabelEncoder, OneHotEncoder #LabelEncoder用于将类别标签转换为数字，OneHotEncoder用于将数字转换为one-hot编码
+le = LabelEncoder()
+ohe = OneHotEncoder()
+le.fit_transform(df['col1'])
+ohe.fit_transform(df['col1'].values.reshape(-1,1))
+
 ## linear regression
 from sklearn.linear_model import LinearRegression
 model = LinearRegression()
@@ -20,13 +27,26 @@ X_scaled = scaler.fit_transform(X)
 lasso_reg = Lasso()
 lasso_reg.fit(X_scaled, y)
 
-## decision tree
-from sklearn.tree import DecisionTreeClassifier
-model = DecisionTreeClassifier(max_depth = 7, min_samples_leaf = 10)
+## L2 regularization
+# ridge在线性回归损失函数基础上加入了L2正则化
+from sklearn.linear_model import Ridge
+ridge_reg = Ridge(alpha = 0.5)
+ridge_reg.fit(X_scaled, y)
+
+## Logistic Regression
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit(X, y)
+model.predict(X_test)
+
+## KNN
+from sklearn.neighbors import KNeighborsClassifier
+model = KNeighborsClassifier(n_neighbors = 3)
 model.fit(X_train, y_train)
 model.predict(X_test)
 
 ## naive bayes
+# GaussianNB is used for continuous data, MultinomialNB is used for discrete data
 from sklearn.naive_bayes import MultinomialNB
 naive_bayes = MultinomialNB()
 naive_bayes.fit(training_data, y_train)
@@ -37,24 +57,70 @@ print('Precision score: ', format(precision_score(predictions, y_test)))
 print('Recall score: ', format(recall_score(predictions, y_test)))
 print('F1 score: ', format(f1_score(predictions, y_test)))
 
-## SVM
-from sklearn.svm import SVC
-model = SVC(kernel='poly', degree=4, C=0.1)
-model.fit(X, y)
+## decision tree
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier(max_depth = 7, min_samples_leaf = 10)
+model.fit(X_train, y_train)
+model.predict(X_test)
 
-## adaboost
+## Random Forest
+from sklearn.ensemble import RandomForestClassifier
+model = RandomForestClassifier(max_depth = 2, min_samples_leaf = 10)
+model.fit(x_train, y_train)
+model.predict(x_test)
+
+## Bagging
+from sklearn.ensemble import BaggingClassifier
+model = BaggingClassifier(base_estimator = DecisionTreeClassifier(max_depth=2), n_estimators = 4)
+model.fit(x_train, y_train)
+model.predict(x_test)
+
+## Adaboost
 from sklearn.ensemble import AdaBoostClassifier
 model = AdaBoostClassifier(base_estimator = DecisionTreeClassifier(max_depth=2), n_estimators = 4)
 model.fit(x_train, y_train)
 model.predict(x_test)
 
+## Gradient Boosting
+from sklearn.ensemble import GradientBoostingClassifier
+model = GradientBoostingClassifier(max_depth = 2, min_samples_leaf = 10)
+model.fit(x_train, y_train)
+model.predict(x_test)
+
+## SGDC
+#主要用于大规模稀疏数据
+#特征数量和样本数量大，选用log或hinge(线性核svm)
+#特征数量大，样本数量小，选用modified_huber
+#特征数量小，样本数量大，选用perceptron
+from sklearn.linear_model import SGDClassifier
+model = SGDClassifier(loss = 'log', alpha = 0.01)
+model.fit(x_train, y_train)
+model.predict(x_test)
+
+## SVM
+from sklearn.svm import SVC
+model = SVC(kernel='poly', degree=4, C=0.1)
+model.fit(X, y)
+
+## grid search 
+## aim: find the best parameters for a model, the model muss set random_state
+from sklearn.model_selection import GridSearchCV
+parameters = {'kernel':['poly', 'rbf'],'C':[0.1, 1, 10]}
+from sklearn.metrics import make_scorer
+from sklearn.metrics import f1_score
+scorer = make_scorer(f1_score)
+grid_fit = GridSearchCV(model, parameters, scoring=scorer).fit(X_train, y_train)
+best_clf = grid_fit.best_estimator_
+best_clf.fit(X_train, y_train)
+best_train_predictions = best_clf.predict(X_train)
+best_test_predictions = best_clf.predict(X_test)
+importances = best_clf.feature_importances_
+
 ## classification metrics
 from sklearn.model_selection import train_test_split
 import numpy as np
-
 X_train, X_test, y_train, y_test = train_test_split(features, outcomes, test_size=0.2, random_state=42)
 accuracy = np.mean(preds == actual)
-
 tp = len(np.intersect1d(np.where(preds==1), np.where(actual==1)))
 pred_pos = (preds==1).sum()
 prec = tp/(pred_pos)
@@ -94,19 +160,6 @@ train_scores_std = np.std(train_scores, axis=1)
 test_scores_mean = np.mean(test_scores, axis=1)
 test_scores_std = np.std(test_scores, axis=1)
 
-## grid search
-from sklearn.model_selection import GridSearchCV
-parameters = {'kernel':['poly', 'rbf'],'C':[0.1, 1, 10]}
-from sklearn.metrics import make_scorer
-from sklearn.metrics import f1_score
-scorer = make_scorer(f1_score)
-grid_obj = GridSearchCV(model, parameters, scoring=scorer)
-grid_fit = grid_obj.fit(X_train, y_train)
-best_clf = grid_fit.best_estimator_
-best_clf.fit(X_train, y_train)
-best_train_predictions = best_clf.predict(X_train)
-best_test_predictions = best_clf.predict(X_test)
-
 ##KMeans
 #可以通过设定一系列n_clusters，然后通过score来选择最优的n_clusters
 from sklearn.cluster import KMeans
@@ -119,7 +172,6 @@ kmeans_model = KMeans(n_clusters=clusters, random_state=123).fit(df_ss)
 kmeans_prediction = kmeans_model.predict(df_ss)
 centers = kmeans_model.cluster_centers_[kmeans_prediction]
 score = kmeans_model.score(df_ss)
-
 
 ## hierachical clustering
 from sklearn import datasets, cluster
@@ -175,7 +227,6 @@ def dunn(X, labels):
             cluster_j = X[np.where(labels == j)]
             inter_dists.append(np.mean(pairwise_distances(cluster, cluster_j, metric='euclidean')))
     return min(inter_dists) / max(intra_dists)
-
 
 ## PCA
 #一般先不设置n_components，然后根据explained_variance_ratio_来决定n_components的值

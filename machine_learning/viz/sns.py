@@ -1,3 +1,6 @@
+## EDA
+import seaborn as sns
+sns.catplot(x='income', y='capital-gain', hue='sex', data=data, kind='bar')
 
 ## pairgrid
 import seaborn as sns

@@ -141,6 +141,7 @@ s.str.endswith('d')
 cities = ['New York', 'Rome', 'Madrid', 'Istanbul', 'Rome']
 pd.Series(cities).str.get_dummies() #将标签one-hot化, 也可以用replace或map实现
 pd.get_dummies(df) #自动将非数值数据转换为one-hot形式，同时保留数据数据
+s_encoded = (s == "yes").astype(int) #将二分类标签转换为数值标签
 df['wt_cat_cut'] = pd.cut(np.array(df['weight']), 4, labels=["Light", "Medium", "Heavy", "Very heavy"])
 
 #sql
