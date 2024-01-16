@@ -191,7 +191,9 @@ Random Forest（随机森林）是Bagging（放回抽样，多数表决voting（
 - boosting
 通过加法模型将弱分类器进行线性组合，根据错误率改变权值，降低偏差(bias)。如Adaboost和GBDT
 - stacking
-将弱分类器的输出作为输入通过一个模型进行组合来改进预测，通常使用logistic回归作为组合策略。
+为两层的集成：第一层为多个基础分类器，输出元特征作为第二层的输入；第二层通常是逻辑回归输出预测结果。
+- Averaging/Voting
+对多模型的预测结果求平均(目标变量为连续值)或者投票(目标变量为离散值)
 
 bagging和boosting区别
 - 样本选择
