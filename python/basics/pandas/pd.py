@@ -108,6 +108,8 @@ df.apply(np.mean) #对DataFrame中的每⼀列应⽤函数np.mean
 df.apply(np.max,axis=1, raw=False) # 对DataFrame中的每⼀⾏应⽤函数np.max, raw=false传递到func为Series，raw=true传递参数为ndarray
 df.apply(lambda x: x[0:2])
 
+s.corr(s1)  # 计算Series对象s和s1之间的相关系数
+
 #合并数据
 # merge默认内连接，通常是重复列名做连接键；
 # join默认左连接，通常是行索引上的合并；
