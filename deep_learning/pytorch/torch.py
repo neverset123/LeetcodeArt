@@ -50,7 +50,8 @@ torch.manual_seed(7) #设置生成数据的seed
 tensor = torch.randn(2,3) # 2*3的tensor
 tensor = torch.zeros(1, requires_grad=True) # requires_grad=True表示需要计算梯度
 tensor = torch.Tensor(2,3) # 2*3的tensor
-tensor = torch.tensor([[1,2,3],[4,5,6]])
+tensor = torch.tensor([[1,2,3],[4,5,6]]) # 2*3的tensor向量
+tensor = torch.tensor(1) #标量)
 tensor = torch.from_numpy(array) # array和tensor共享内存
 array = tensor.numpy() #convert tensor to numpy array
 tensor.type(torch.FloatTensor) #更改数据类型
@@ -73,6 +74,7 @@ torch.mean()
 import torch.nn.functional as F
 F.sigmoid()
 F.softmax()
+tensor.grad #查看tensor的梯度
 
 ## 4. build NN model
 from torch import nn

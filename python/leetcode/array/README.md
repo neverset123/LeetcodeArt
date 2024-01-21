@@ -21,3 +21,8 @@ array.index(ele)
 #shallow copy
 [1,2,3].copy()
 ```
+## list concatenate
+```
+[1,2,3] +[1]
+```
+
