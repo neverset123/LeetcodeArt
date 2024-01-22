@@ -29,21 +29,21 @@ limit 1 offset 1
 ### exchange every two values
 ```
 SELECT ( CASE
+           WHEN MOD(tb1.id, 2) != 0
+                AND tb1.id != tb2.cnt THEN tb1.id + 1
            WHEN MOD(id, 2) != 0
-                AND counts != id THEN id + 1
-           WHEN MOD(id, 2) != 0
-                AND counts = id THEN id
+                AND tb1.id = tb2.cnt THEN id
            ELSE id - 1
          end ) AS id,
        student
-FROM   seat,
-       (SELECT Count(*) AS counts
-        FROM   seat) AS seat_counts
-ORDER  BY id ASC;;
+FROM   seat AS tb1,
+       (SELECT Count(*) AS cnt
+        FROM seat) AS tb2
+ORDER  BY id ASC;
 ```
 
 ### dense rank
-返回的是持续的编号
+返回持续编号
 ```
 SELECT score, DENSE_RANK() OVER (ORDER BY score DESC) as `rank`
 FROM Scores
@@ -76,15 +76,17 @@ str1+str2
 ```
 group_concat(distinct product) as products
 
-group_concat(class, ':',score separator ',') as 'class:score'
+group_concat(class, ':', score SEPERATOR ',') as 'class:score'
 ```
 ## 日期操作
 ### dateDiff()
-计算日期天数差
+计算日期date_part元素的差
+DATEDIFF( date_part , start_date , end_date)
+
 ### date_sub
 返回某一日期前特定天的日期
 ```
-date_sub('2019-07-27', interval 30 day)
+date_sub('2019-07-27', INTERVAL 30 day)
 ```
 ### year, month, day
 提取年月日
@@ -98,8 +100,7 @@ sum, count, max, min(if )
 ```
 WITH t AS 
 (
-
-SELECT account, SUM(amount) balance 
+SELECT account, SUM(amount), balance 
 FROM Transactions GROUP BY account HAVING SUM(amount)>10000
 )
 SELECT name, balance
