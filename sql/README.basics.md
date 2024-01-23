@@ -15,3 +15,15 @@ ODBC（Open Database Connectivity）和JDBC（Java Database Connectivity）都�
 **ODBC** 是一个标准的数据库访问方法，它使得我们可以从任何应用程序中访问任何数据库，只要这个数据库有一个ODBC驱动程序。ODBC是独立于编程语言的，可以用于C，C++，Python，Java等多种语言。它是跨平台的，可以在Windows，Linux，Mac等操作系统上使用。
 **JDBC** 是Java中用于数据库连接的API，它允许Java程序通过统一的接口连接到各种关系数据库。JDBC是Java语言特有的，只能在Java中使用。
 
+## 优化
+1.	自增id主键性能高于uuid
+2.	使用varchar代替char, 变长字段按数据内容实际长度存储，存储空间小
+3.	where中使用默认值代替null, !=，<>，is null，is not null经常被认为让索引失效
+4.	小表驱动大表，小的数据集驱动大的数据集，从而让性能更优
+5.	清空表时优先使用truncate table
+6.	采用UNION ALL操作符性能高于UNION
+7.	避免在索引列上使用内置函数,会引起索引失效
+8.	排序时应按照组合索引中各列的顺序进行排序，即使索引中只有一个列是要排序的，否则排序性能会比较差
+9.	利用复合索引最左特性进行索引
+10.	尽量避免模糊查询，如果必须使用，不采用全模糊查询，也应尽量采用右模糊查询， 即like ‘…%’，是会使用索引的
+11. 使用union比where A or B要高效
