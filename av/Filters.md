@@ -46,3 +46,22 @@ $$ (σ^2)^{'} = \frac{1}{\frac{1}{r^2}+\frac{1}{σ^2}}$$
 
 
 ## Particle Filter
+Particle filter, also known as Monte Carlo localization, is a probabilistic algorithm used for estimating the state of a system based on sensor measurements. It is particularly useful in scenarios where the system's state is non-linear or multi-modal.
+
+The particle filter works by representing the state of the system using a set of particles, where each particle represents a possible state hypothesis. These particles are propagated through time using a motion model and updated based on sensor measurements.
+
+The steps involved in a particle filter are as follows:
+
+1. Initialization: Generate an initial set of particles representing possible states of the system.
+
+2. Prediction: Propagate the particles forward in time using a motion model that describes how the system evolves.
+
+3. Weighting: Assign weights to each particle based on how well it matches the sensor measurements. The weights are calculated using a measurement model.
+
+4. Resampling: Select a new set of particles from the current set based on their weights. Particles with higher weights have a higher chance of being selected.
+
+5. Repeat steps 2-4 for each time step.
+
+The particle filter provides an approximation of the posterior distribution of the system's state based on the sensor measurements. It is a powerful tool for state estimation in complex and non-linear systems.
+
+
