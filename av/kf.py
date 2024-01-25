@@ -17,9 +17,6 @@ motion_sig = 2.
 mu = 0.
 sig = 10000.
 
-#Please print out ONLY the final values of the mean
-#and the variance in a list [mu, sig]. 
-# Insert code here
 for u_measure, u_motion in zip(measurements, motion):
     new_mean, new_var = update(mu, sig, u_measure, measurement_sig)
     mu, sig = predict(new_mean, new_var, u_motion, motion_sig)
