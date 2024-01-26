@@ -35,6 +35,7 @@ class Solution:
                     dp[i][j]=max(dp[i-1][j-1],dp[i-1][j], dp[i][j-1])
         return dp[m][n]
 
+    #minimum ASCII sum of deleted charaters to make two strings equal
     def minimumDeleteSum(self, text1: str, text2: str) -> int:
         m,n=len(text1),len(text2)
         memo=[[sys.maxsize]*n for _ in range(m)]

@@ -10,7 +10,7 @@ class Solution:
     def rob(self, nums: List[int]) -> int:
         m=len(nums)
         memo=[-1]*m
-        # 返回nums[index, -1]能抢到的最大值
+        # 返回nums[index:-1]能抢到的最大值
         def dp(nums, index):
             if index>=m:
                 return 0

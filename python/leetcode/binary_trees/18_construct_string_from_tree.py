@@ -16,3 +16,8 @@ class Solution:
         self.tree2str(root.right)
         self.traverse_string+=")"
         return self.traverse_string[1:-1]
+
+if __name__ == "__main__":
+    test_data = [1,2,3,None,4]
+    test_tree = from_list(test_data)
+    print(Solution().tree2str(test_tree))
