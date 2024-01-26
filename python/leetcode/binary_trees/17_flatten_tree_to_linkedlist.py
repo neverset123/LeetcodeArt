@@ -15,8 +15,8 @@ class Solution:
         # 移动指针
         self.p.right=TreeNode(root.val)
         self.p=self.p.right
-        self.flatten_v1(root.left)
-        self.flatten_v1(root.right)
+        self.flatten(root.left)
+        self.flatten(root.right)
         return self.dummy.right
 
     # this modify in-place
