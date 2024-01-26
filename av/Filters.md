@@ -46,7 +46,7 @@ $$ (σ^2)^{'} = \frac{1}{\frac{1}{r^2}+\frac{1}{σ^2}}$$
 
 
 ## Particle Filter
-Particle filter, also known as Monte Carlo localization, is a probabilistic algorithm used for estimating the state of a system based on sensor measurements. It is particularly useful in scenarios where the system's state is non-linear or multi-modal.
+Particle filter, also known as Monte Carlo localization, is a probabilistic algorithm used for estimating the state of a system based on sensor measurements. It is particularly useful in scenarios where the system's state is non-linear and non-Gaussian or multi-modal.
 
 The particle filter works by representing the state of the system using a set of particles, where each particle represents a possible state hypothesis. These particles are propagated through time using a motion model and updated based on sensor measurements.
 
