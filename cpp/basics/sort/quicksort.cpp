@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 
 class quickSort{
     public:
@@ -17,15 +16,18 @@ class quickSort{
             sort(nums, pivot+1, right);
         }
         static int partition(int nums[], int left, int right){
-            int pivot = nums[left];
-            for(int i=left+1; i<=right; i++){
-                if(nums[i]<pivot){
-                    std::swap(nums[left], nums[i]);
+            int pivot = left;
+            while(left<right){
+                while(left<right && nums[right]>nums[pivot]){
+                    right--;
+                }
+                while(left<right && nums[left]<=nums[pivot]){
                     left++;
                 }
+                std::swap(nums[left], nums[right]);
             }
-            std::swap(nums[left], nums[right]);
-            return left;
+            std::swap(nums[pivot], nums[right]);
+            return right;
         }
 };
 

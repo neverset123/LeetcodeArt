@@ -1,7 +1,7 @@
 cc_binary(
     name = "example",
     srcs = [ 
-        "basics/main.cpp",
+        "basics/sort/insertsort.cpp",
     ],
     visibility = ["//visibility:public"],
 )
