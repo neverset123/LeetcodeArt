@@ -25,3 +25,11 @@ q.back()
 ### 检查键值是否存在
 map.count(key) 
 
+## vector
+### return 值为vector时可以直接{1,2}
+### 首尾元素
+vec.front(), vec.back()
+### 首尾元素index
+vec.begin(), vec.end()
+### 翻转数组
+std::reverse(vec.begin(), vec.end())
