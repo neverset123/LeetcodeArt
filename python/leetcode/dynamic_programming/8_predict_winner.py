@@ -1,4 +1,3 @@
-#测试没通过，不知道为啥
 # 博弈问题
 
 from typing import List
@@ -8,7 +7,7 @@ class Solution:
         m=len(nums)
         # dp[i][j]=[first, second]分别表示在石堆[i,j]中
         # 先手、后手能获得的最高得分
-        dp=[[[0, 0]]*m for _ in range(m)]
+        dp=[[[0, 0] for _ in range(m)] for _ in range(m)]
         for i in range(m):
             dp[i][i]=(nums[i], 0)
         for i in range(m-2, -1, -1):

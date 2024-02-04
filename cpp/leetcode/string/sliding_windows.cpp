@@ -2,7 +2,8 @@
 #include <unordered_map>
 #include <string>
 
-class left_right_pointers {
+class sliding_windows
+{
 public:
     // 76. 最小覆盖子串
     std::string minWindow(std::string s, std::string t)
@@ -47,10 +48,10 @@ public:
     }
 
     // 567. 字符串的排列
-    bool check_permutation(std::string s1, std::string s2)
+    bool check_permutation(std::string s, std::string t)
     {
-        std::string sub_str = minWindow(s1, s2);
-        if( sub_str != "" && sub_str.size() == s2.size())
+        std::string sub_str = minWindow(s, t);
+        if( sub_str != "" && sub_str.size() == t.size())
         {
             return true;
         }
@@ -62,13 +63,13 @@ public:
 
 int main()
 {
-    left_right_pointers lrp;
+    sliding_windows sw;
     // std::string s = "ADOBECODEBANC";
     // std::string t = "ABC";
-    // std::string res = lrp.minWindow(s, t);
+    // std::string res = sw.minWindow(s, t);
     std::string s1 = "ab";
     std::string s2 = "eidboaooo";
-    bool res = lrp.check_permutation(s1, s2);
+    bool res = sw.check_permutation(s2, s1);
     std::cout << res << std::endl;
     return 0;
 }

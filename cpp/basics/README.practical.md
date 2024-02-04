@@ -23,3 +23,6 @@ for (auto it = m.cbegin(); it != m.cend() /* not hoisted */; /* no increment */)
   }
 }
 ```
+
+## NULL
+NULL在cpp中被定义为0， 所以if(NULL)为假

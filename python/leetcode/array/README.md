@@ -3,10 +3,12 @@
 2. if element in list is dictionary or list, it is mutable. if you need append an object to list that is not changable, use copied object
 
 ## create array
-1. #2d array
+1. 2d array
 [[0]*n for _ in range(n)]
 不要用[[0]*len(s1)]*len(s2)!!
-2. 最大正整数是 sys.maxsize; 最小负整数是-sys.maxsize-1
+2. 3d array
+[[[0, 0] for _ in range(m)] for _ in range(m)]
+3. 最大正整数是 sys.maxsize; 最小负整数是-sys.maxsize-1
 
 ## array properties
 #sort array
