@@ -1,3 +1,6 @@
+# 时间复杂度: 最坏为O(n^2), 最好为O(n)
+# 空间复杂度: O(1)
+
 def insertsort(arr):
     for i in range(1,len(arr)):
         for j in range(i,0,-1):

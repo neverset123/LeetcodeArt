@@ -1,3 +1,6 @@
+# 时间复杂度: 最好O(n), 最坏O(n^2)
+# 空间复杂度: O(1)
+
 def bubblesort(arr):
     for i in range(len(arr)):
         for j in range(len(arr)-i-1):
