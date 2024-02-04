@@ -1,11 +1,10 @@
 //归并排序
 #include <iostream>
+#include <vector>
 
 class mergeSort {
     public:
-        static int* temp;
-        
-    public:
+        static std::vector<int> temp;
         static void sort(int arr[], int left, int right) {
             if(left == right) return;
             int m = (right+left)/2;
@@ -26,7 +25,7 @@ class mergeSort {
         }
 };
 
-int* mergeSort::temp = new int[100];
+std::vector<int> mergeSort::temp = std::vector<int>(10, 0);
 int main(){
     int nums[] = {1, 3, 2, 5, 4};
     mergeSort::sort(nums, 0, 4);
@@ -34,6 +33,5 @@ int main(){
         std::cout<<nums[i]<<" ";
     }
     std::cout<<std::endl;
-    delete[] mergeSort::temp;
     return 0;
 }
