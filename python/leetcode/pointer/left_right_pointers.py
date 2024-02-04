@@ -1,3 +1,5 @@
+# 时间复杂度：O(n)
+
 class Solution:
     def two_sum(self, numbers, target):
         left = 0
@@ -12,6 +14,7 @@ class Solution:
                 right-=1
         return [-1,-1]
 
+    # longest palindrome substring
     def longest_palindrome(self, string):
         max_pali=""
         for i in range(len(string)):

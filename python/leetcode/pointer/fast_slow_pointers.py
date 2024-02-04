@@ -1,4 +1,7 @@
+# 链表字串问题适合用快慢指针解决
+
 class Solution:
+    # remove duplicates from sorted array and return length
     def remove_duplicate(self, nums):
         if len(nums)<=1:
             return len(nums)
@@ -11,6 +14,7 @@ class Solution:
             fast+=1
         return slow+1
 
+    # remove values from list and return length
     def remove_values(self, nums, val):
         if len(nums)==0:
             return 0
@@ -40,7 +44,7 @@ class Solution:
 if __name__ == "__main__":
     test_data = [0,0,1,1,2,2,3]
     solution = Solution()
-    #print(test_data[:solution.remove_duplicate(test_data)])
-    #print(test_data[:solution.remove_values(test_data, 1)])
+    # print(test_data[:solution.remove_duplicate(test_data)])
+    # print(test_data[:solution.remove_values(test_data, 1)])
     solution.move_zeros(test_data)
     print(test_data)
