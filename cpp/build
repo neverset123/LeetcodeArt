@@ -1,7 +1,8 @@
 cc_binary(
     name = "example",
     srcs = [ 
-        "basics/sort/insertsort.cpp",
+        "leetcode/traverse.cpp",
     ],
+    includes = glob(["leetcode/**/*.h"],),
     visibility = ["//visibility:public"],
 )

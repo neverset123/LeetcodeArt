@@ -3,6 +3,7 @@
 # 所以总的复杂度就是二叉树中所有数组元素的个数
 # 也就是树的深度*每一层元素的个数=NlogN
 # 是稳定排序，相同元素的相对位置不发生变化
+# 归并排序时二叉树的后序遍历
 class Solution:
     def mergesort(self, nums):
         if len(nums)<=1:
