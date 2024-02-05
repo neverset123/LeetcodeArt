@@ -3,11 +3,15 @@
 创建临时表
 */
 CREATE DATABASE IF NOT EXISTS test;
-CREATE TABLE IF NOT EXISTS test.t (c1 INT, c2 STRING);
+CREATE TABLE IF NOT EXISTS test.t (c1 INT PRIMARY KEY, c2 STRING NOT NULL UNIQUE); /* constraint t non null and unique in table*/
+CREATE TABLE IF NOT EXISTS test.t (c1 INT, c2 STRING, PRIMARY KEY(c1, c2)); /* composite key to guarantee uniqueness*/
+CREATE TABLE IF NOT EXISTS test.t (c1 INT, c2 STRING, PRIMARY KEY((c1),c2)); /* primary key made up of partition key and clustering key in cassandra*/
 ALTER TABLE test.t ADD COLUMNS (c3 INT);
 ALTER TABLE test.t Modify COLUMN c3 STRING;
 INSERT INTO test.t VALUES (1, 'a'), (2, 'b'), (3, 'c');
-INSERT INTO test.t SELECT * FROM test.t WHERE c = 'a';
+INSERT INTO test.t (c1, c2) VALUES (1, 'a'), (2, 'b'), (3, 'c') ;
+INSERT INTO test.t SELECT * FROM test.t WHERE c = 'a'; 
+INSERT INTO test.t (c1, c2) VALUES (1,'a') ON CONFLICT (c1) DO UPDATE SET c2 = 'a'; -- 如果主键冲突，则更新
 UPDATE test.t SET c = 'd' WHERE c = 'a';
 UPDATE test.t SET c =(IF(c = 'a', 'd', 'e'));
 DELETE FROM test.t WHERE c = 'a';
@@ -178,7 +182,7 @@ SELECT * FROM t1 UNION ALL SELECT * FROM t2;
 SELECT * FROM t1 INTERSECT SELECT * FROM t2;
 SELECT * FROM t1 EXCEPT SELECT * FROM t2;
 SELECT * FROM t1 MINUS SELECT * FROM t2;
-SELECT * FROM t1 INNER JOIN t2 ON t1.c1 = t2.c1;
+SELECT * FROM t1 INNER JOIN t2 ON t1.c1 = t2.c1; /* avoid select * to avoid duplicating the joined key in result */
 
 
 /*
