@@ -10,6 +10,14 @@
 [[[0, 0] for _ in range(m)] for _ in range(m)]
 3. 最大正整数是 sys.maxsize; 最小负整数是-sys.maxsize-1
 
+## add/remove last element
+array.append(ele) # append is adding a reference to the ele, if no mutable is expected, a deep copy is neeeded
+array.pop()
+
+## add/remove at specific position
+array.insert(pos, ele)
+array.pop(pos)
+
 ## array properties
 #sort array
 sorted(array)

@@ -34,7 +34,7 @@ class Solution:
 
 if __name__ == "__main__":
     test_data = [2,7,11,15]
-    test_string = "babad"
+    test_string = "cbabadcbb"
     target=18
     solution = Solution()
     print(solution.two_sum(test_data, target))

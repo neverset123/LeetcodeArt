@@ -26,10 +26,15 @@ q.back()
 map.count(key) 
 
 ## vector
+函数内部vector可以作为返回值，因为cpp自动处理内存管理问题。
 ### return 值为vector时可以直接{1,2}
 ### 首尾元素
 vec.front(), vec.back()
 ### 首尾元素index
 vec.begin(), vec.end()
+### 弹出元素
+vec.pop_back() //只能弹出最后一个元素，移除任意元素需用vec.erase()
 ### 翻转数组
 std::reverse(vec.begin(), vec.end())
+### 数组排序
+std::sort(vec.begin(), vec.end())

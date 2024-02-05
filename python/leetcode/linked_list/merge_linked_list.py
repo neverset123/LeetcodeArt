@@ -11,10 +11,10 @@ class Solution:
         p2=node2
         while(p1!=None and p2!=None):
             if(p1.val<p2.val):
-                temp_node.next=ListNode(p1.val)
+                temp_node.next=p1
                 p1=p1.next
             else:
-                temp_node.next=ListNode(p2.val)
+                temp_node.next=p2
                 p2=p2.next
             temp_node=temp_node.next
         if p2!=None:

@@ -33,7 +33,8 @@ class Solution:
                 j-=1
             return True
 
-    def longestPalindrome(self, s: str) -> int:
+    # length of the longest palindrome that can be built with the characters in the string
+    def longest_palindrome(self, s: str) -> int:
         from collections import Counter
         res=0
         sc=Counter(s)
@@ -44,4 +45,7 @@ class Solution:
         else:
             return res*2
             
-    
+if __name__ == "__main__":
+    test_string = "cbabadcbb"
+    solution = Solution()
+    print(solution.longest_palindrome(test_string))

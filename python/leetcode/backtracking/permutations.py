@@ -18,3 +18,7 @@ class Solution:
                 track.pop(-1)
         backtrack(nums, track)
         return res
+    
+if __name__ == '__main__':
+    s = Solution()
+    print(s.permute([1,2,3]))
