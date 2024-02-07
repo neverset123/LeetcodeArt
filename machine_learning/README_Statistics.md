@@ -19,3 +19,54 @@ $$ I(X,Y)=H(X)-H(X|Y) = H(Y)-H(Y|X) = H(X) + H(Y) -H(X,Y) $$
 ## 矩阵
 ### 协方差矩阵
 描述多维变量相关关系的矩阵（若两个变量相互独立，则协方差为零）。变量相关度越大，非对角线元素越大，不确定度越小。可以用于计算马氏距离的权重。
+
+## 不确定性
+- Aleatoric Uncertainty(data)
+- Epistemic Uncertainty(model)
+Aleatoric Uncertainty and Epistemic Untertainty do have degree of interaction only if they pre predicted by same model.
+
+### classification
+use entropy to describe uncertainty
+- binary entropy
+- multiclass entropy
+
+loss function considering uncertainty:
+- cross entropy
+- gaus NLL
+- KL Divergence
+
+### regression
+use mse to describe uncertainty
+
+
+### Matrics
+#### classificaiton
+
+- proper scoring rules
+
+    - log loss
+    - cross-entropy losss
+    - KL Divergence
+    - brier score
+    - Gaus NLL
+
+- inproper scoring rules
+
+    - accuracy
+    - mse
+    - 
+
+#### Regression
+
+- Coverage
+- differential entropy
+
+### Calibration
+make confidence and error proportional.
+Reliability can be observed by Reliability plot.
+Calibration Error = $\sum|acc(B_i)-conf(B_i)|$
+
+#### classification
+
+#### regression
+
