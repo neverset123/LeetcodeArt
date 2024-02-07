@@ -9,11 +9,6 @@ class Graph:
         else:
             self.graph[node].append(neighbour)
 
-    def show_edges(self):
-        for node in self.graph:
-            for neighbour in self.graph[node]:
-                print("Edge : Node = ", node, " Neighbour = ", neighbour)
-
 
 def build_graph(edges):
     graph = Graph()
