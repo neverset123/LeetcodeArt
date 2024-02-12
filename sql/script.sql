@@ -6,12 +6,14 @@ CREATE DATABASE IF NOT EXISTS test;
 CREATE TABLE IF NOT EXISTS test.t (c1 INT PRIMARY KEY, c2 STRING NOT NULL UNIQUE); /* constraint t non null and unique in table*/
 CREATE TABLE IF NOT EXISTS test.t (c1 INT, c2 STRING, PRIMARY KEY(c1, c2)); /* composite key to guarantee uniqueness*/
 CREATE TABLE IF NOT EXISTS test.t (c1 INT, c2 STRING, PRIMARY KEY((c1),c2)); /* primary key made up of partition key and clustering key in cassandra*/
+CREATE TABLE IF NOT EXISTS test.t (c1 INT REFERENCES t1(c1), c2 STRING, PRIMARY KEY(c1, c2)); /* foreign key reference*/
 ALTER TABLE test.t ADD COLUMNS (c3 INT);
 ALTER TABLE test.t Modify COLUMN c3 STRING;
 INSERT INTO test.t VALUES (1, 'a'), (2, 'b'), (3, 'c');
 INSERT INTO test.t (c1, c2) VALUES (1, 'a'), (2, 'b'), (3, 'c') ;
 INSERT INTO test.t SELECT * FROM test.t WHERE c = 'a'; 
 INSERT INTO test.t (c1, c2) VALUES (1,'a') ON CONFLICT (c1) DO UPDATE SET c2 = 'a'; -- 如果主键冲突，则更新
+INSERT INTO test.t (c1, c2) SELECT * FROM test.t WHERE c = 'a' ON CONFLICT (c1) DO NOTHING;
 UPDATE test.t SET c = 'd' WHERE c = 'a';
 UPDATE test.t SET c =(IF(c = 'a', 'd', 'e'));
 DELETE FROM test.t WHERE c = 'a';
@@ -52,7 +54,7 @@ SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY c) FROM t;
 
 /*
 字段处理
-EXTRACT：提取日期中的年、月、日、时、分、秒
+EXTRACT：提取日期中的年、月、日、时、分、秒、星期，季度等
 DATEDIFF：计算两个日期之间的天数，参数1-参数2
 DATESUB：日期减去一个时间间隔，参数1-参数2
 DATEADD：日期加上一个时间间隔，参数1+参数2
@@ -70,6 +72,7 @@ SUBSTRING：截取字符串
 SUBSTRING_INDEX：截取字符串，第三个参数为第几次出现的分隔符
 */
 SELECT EXTRACT(YEAR FROM c) FROM t;
+SELECT EXTRACT(ISODOW FROM c) FROM t; -- 1-7表示周一到周日
 SELECT DATEDIFF('2019-01-01', '2019-01-02') FROM t;
 SELECT DATESUB('2019-01-01', INTERVAL 1 DAY) FROM t;
 SELECT DATEADD('2019-01-01', INTERVAL 1 DAY) FROM t;

@@ -27,3 +27,20 @@ ODBC（Open Database Connectivity）和JDBC（Java Database Connectivity）都�
 9.	利用复合索引最左特性进行索引
 10.	尽量避免模糊查询，如果必须使用，不采用全模糊查询，也应尽量采用右模糊查询， 即like ‘…%’，是会使用索引的
 11. 使用union比where A or B要高效
+
+
+## 数据类型
+
+0. **整型递增**： SERIAL
+
+1. **整数类型**：如 `INT`, `SMALLINT`, `TINYINT`, `BIGINT` 等，用于存储整数值。
+
+2. **浮点数类型**：如 `FLOAT`, `DOUBLE`, `DECIMAL` `NUMERIC(10, 2)` 等，用于存储小数或精确的数值。
+
+3. **字符类型**：如 `CHAR`, `VARCHAR`, `TEXT` 等，用于存储文本或字符串。
+
+4. **日期和时间类型**：如 `DATE`, `TIME`, `DATETIME`, `TIMESTAMP` 等，用于存储日期和时间。
+
+5. **布尔类型**：如 `BOOLEAN` 或 `BIT`，用于存储真或假（true/false）。
+
+6. **二进制类型**：如 `BINARY`, `VARBINARY`, `BLOB` 等，用于存储二进制数据。

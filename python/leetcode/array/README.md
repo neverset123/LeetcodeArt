@@ -20,8 +20,8 @@ array.pop(pos)
 
 ## array properties
 #sort array
-sorted(array)
-array.sort(key=lambda x: ...)
+sorted(array) # it returns new sorted list, the original sequence remains unchanged. It can be used with any iterable
+array.sort(key=lambda x: ...) # sort element in place
 array.remove(ele)
 #find index of ele
 array.index(ele)

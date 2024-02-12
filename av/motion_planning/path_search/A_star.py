@@ -1,28 +1,11 @@
-# find shortest path with A*
-grid = [[0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0]]
-init = [0, 0]
-goal = [len(grid)-1, len(grid[0])-1]
-cost = 1
- 
-delta = [[-1, 0], # go up
-         [ 0,-1], # go left
-         [ 1, 0], # go down
-         [ 0, 1]] # go right
- 
-delta_name = ['^', '<', 'v', '>']
- 
-# h的值全部为0,A star算法退回到上面普通搜索算法
+# h的值全部为0,A star算法退回到普通搜索算法
 #heuristic = [[0 for row in range(len(grid[0]))] for col in range(len(grid))]
 heuristic = [[9, 8, 7, 6, 5, 4],
-             [8, 7, 6, 5, 4, 3],
-             [7, 6, 5, 4, 3, 2],
-             [6, 5, 4, 3, 2, 1],
-             [5, 4, 3, 2, 1, 0]]
- 
+            [8, 7, 6, 5, 4, 3],
+            [7, 6, 5, 4, 3, 2],
+            [6, 5, 4, 3, 2, 1],
+            [5, 4, 3, 2, 1, 0]]
+
 def search_A_star(grid,init,goal,cost):
     # check if cell is used before
     closed = [[0 for col in range(len(grid[0]))] for row in range(len(grid))]
@@ -69,7 +52,7 @@ def search_A_star(grid,init,goal,cost):
                     y2 = y + delta[i][1]
                     if x2 >= 0 and x2 < len(grid) and y2 >=0 and y2 < len(grid[0]):
                         if closed[x2][y2] == 0 and grid[x2][y2] == 0:
-                            g2 = g + cost
+                            g2 = g + cost[i]
                             h2 = heuristic[x2][y2]
                             f2 = g2 + h2
                             open.append([f2, g2, h2,  x2, y2])
@@ -98,4 +81,21 @@ def search_A_star(grid,init,goal,cost):
     path.reverse()
     return expand
  
-result = search_A_star(grid,init,goal,cost)
+if __name__ == '__main__':
+    # find shortest path with A star algorithm
+    grid = [[0, 1, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0]]
+    init = [0, 0]
+    goal = [len(grid)-1, len(grid[0])-1]
+    cost = [2, 2, 1, 1]
+    
+    delta = [[-1, 0], # go up
+            [ 0,-1], # go left
+            [ 1, 0], # go down
+            [ 0, 1]] # go right
+    
+    delta_name = ['^', '<', 'v', '>']
+    result = search_A_star(grid,init,goal,cost)
