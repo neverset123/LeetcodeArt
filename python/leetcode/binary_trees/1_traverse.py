@@ -30,6 +30,15 @@ class Solution:
         res.extend(self.pre_traverse_v2(root.right))
         return res
 
+    # 多叉树遍历
+    def pre_traverse_multitree(self, root):
+        res = []
+        if root == None:
+            return []
+        res.append(root.val)
+        for child in root.children:
+            res.extend(self.pre_traverse_multitree(child))
+        return res
 
 if __name__ == "__main__":
     test_data = [3,9,20,None,None,15,7]

@@ -59,6 +59,7 @@ class Solution:
             steps+=1
         return -1
 
+    # 二叉树的层序遍历
     def level_traverse_largest_value(self, root):
         if root == None:
             return
@@ -76,6 +77,22 @@ class Solution:
                     temp_list.append(ele.right)
         return max_list
     
+    # 多叉树的层序遍历
+    def level_traverse_largest_value_multi(self, root):
+        if root == None:
+            return
+        temp_list = []
+        max_list = []
+        temp_list.append(root)
+        while(len(temp_list)!=0): #负责从上到下
+            max_list.append(max([ele.val for ele in temp_list]))
+            size = len(temp_list)
+            for i in range(size): #负责从左到右
+                ele = temp_list.pop(0)
+                for child in ele.children:
+                    temp_list.append(child)
+        return max_list
+
     # find min steps from start to goal in grid with obstacles
     def cal_cell_value(self, grid, start, goal, cost):
         import sys
