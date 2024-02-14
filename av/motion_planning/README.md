@@ -20,7 +20,7 @@ treating robots as a particle moving in a field of force, and robots navigates b
 finding a control for a dynamical system over a period of time such that an objective function is optimized. disadvantages: hard to incorporate alls constraints related to other vehicles in a good enough way in order to for algorithm to work fast.
 
 - sample based methods
-sampling state space of the system and building a graph that represents feasible transitions between teh sampled states. two well known methods for path planning are Rapidly-exploring random tree (RRT) and probabilistic Roadmap Method(PRM).
+sampling state space of the system and building a graph that represents feasible transitions between the sampled states. two well known methods for path planning are Rapidly-exploring random tree (RRT) and probabilistic Roadmap Method(PRM).
 
 ### Route Planning
 to find minimum cost path by expanding to next node in configuration space
@@ -44,9 +44,6 @@ principals:
 - continuity(position, speed)
 - smoothness(jerk minimizing: coefficient of item higher than 6 should be 0) -> minimum 1d jerk trajectories: $s(t)=a_0+a_1*t+a_2*t^2+a_3*t^3+a_4*t^4+a_5*t^5$ (6 boundary conditions[start/end position velocity acceleration] will beused to solve the 5 degree polynominal[quintic polynominal]).
 - feasibility: max/min velocity, max/min acceleration, steering angle.
-
-
-
 
 ### Prediction
 it takes input from map of the world and sensor fusion data, generates state of the world of all vehicles and moving objects. it is represented by state of possible trajectories. Multi-object interaction can become much complexer during prediction.
