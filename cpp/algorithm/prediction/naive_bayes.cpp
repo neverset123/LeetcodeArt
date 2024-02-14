@@ -7,75 +7,47 @@ using Eigen::ArrayXd;
 using std::string;
 using std::vector;
 
+// Gaussian Naive Bayes classifier
 class GNB {
  public:
-  /**
-   * Constructor
-   */
   GNB();
-
-  /**
-   * Destructor
-   */
   virtual ~GNB();
-
-  /**
-   * Train classifier
-   */
   void train(const vector<vector<double>> &data, 
              const vector<string> &labels);
-
-  /**
-   * Predict with trained classifier
-   */
   string predict(const vector<double> &sample);
 
   vector<string> possible_labels = {"left","keep","right"};
-  
   ArrayXd left_means;
   ArrayXd left_sds;
   double left_prior;
-  
   ArrayXd keep_means;
   ArrayXd keep_sds;
   double keep_prior;
-  
   ArrayXd right_means;
   ArrayXd right_sds;
   double right_prior;
 };
-// Initializes GNB
 GNB::GNB() {
-  /**
-   * TODO: Initialize GNB, if necessary. May depend on your implementation.
-   */
   left_means = ArrayXd(4);
   left_means << 0,0,0,0;
-  
   left_sds = ArrayXd(4);
-  left_sds << 0,0,0,0;
-    
+  left_sds << 0,0,0,0; 
   left_prior = 0;
     
   keep_means = ArrayXd(4);
   keep_means << 0,0,0,0;
-  
   keep_sds = ArrayXd(4);
   keep_sds << 0,0,0,0;
-  
   keep_prior = 0;
   
   right_means = ArrayXd(4);
   right_means << 0,0,0,0;
-  
   right_sds = ArrayXd(4);
   right_sds << 0,0,0,0;
-  
   right_prior = 0;
 }
 
 GNB::~GNB() {}
-
 void GNB::train(const vector<vector<double>> &data, 
                 const vector<string> &labels) {
   /**
@@ -89,24 +61,13 @@ void GNB::train(const vector<vector<double>> &data,
    * @param labels - array of N labels
    *   - Each label is one of "left", "keep", or "right".
    *
-   * TODO: Implement the training function for your classifier.
    */
-  
-  // For each label, compute ArrayXd of means, one for each data class 
-  //   (s, d, s_dot, d_dot).
-  // These will be used later to provide distributions for conditional 
-  //   probabilites.
-  // Means are stored in an ArrayXd of size 4.
-  
   float left_size = 0;
   float keep_size = 0;
   float right_size = 0;
-  
-  // For each label, compute the numerators of the means for each class
-  //   and the total number of data points given with that label.
+
   for (int i=0; i<labels.size(); ++i) {
     if (labels[i] == "left") {
-      // conversion of data[i] to ArrayXd
       left_means += ArrayXd::Map(data[i].data(), data[i].size());
       left_size += 1;
     } else if (labels[i] == "keep") {
@@ -117,17 +78,11 @@ void GNB::train(const vector<vector<double>> &data,
       right_size += 1;
     }
   }
-
-  // Compute the means. Each result is a ArrayXd of means 
-  //   (4 means, one for each class)
   left_means = left_means/left_size;
   keep_means = keep_means/keep_size;
   right_means = right_means/right_size;
   
-  // Begin computation of standard deviations for each class/label combination.
   ArrayXd data_point;
-  
-  // Compute numerators of the standard deviations.
   for (int i=0; i<labels.size(); ++i) {
     data_point = ArrayXd::Map(data[i].data(), data[i].size());
     if (labels[i] == "left"){
@@ -139,29 +94,15 @@ void GNB::train(const vector<vector<double>> &data,
     }
   }
   
-  // compute standard deviations
   left_sds = (left_sds/left_size).sqrt();
   keep_sds = (keep_sds/keep_size).sqrt();
   right_sds = (right_sds/right_size).sqrt();
-    
-  //Compute the probability of each label
   left_prior = left_size/labels.size();
   keep_prior = keep_size/labels.size();
   right_prior = right_size/labels.size();
 }
 
 string GNB::predict(const vector<double> &sample) {
-  /**
-   * Once trained, this method is called and expected to return 
-   *   a predicted behavior for the given observation.
-   * @param observation - a 4 tuple with s, d, s_dot, d_dot.
-   *   - Example: [3.5, 0.1, 8.5, -0.2]
-   * @output A label representing the best guess of the classifier. Can
-   *   be one of "left", "keep" or "right".
-   *
-   */
-  
-  // Calculate product of conditional probabilities for each label.
   double left_p = 1.0;
   double keep_p = 1.0;
   double right_p = 1.0; 
