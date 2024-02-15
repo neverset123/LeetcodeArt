@@ -19,6 +19,8 @@ $$
 2) inception
 对输入数据同时进行average pooing, 3x3 conv, 1x1 conv和5x5 conv.
 
+## Transformer
+
 
 
 

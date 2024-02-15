@@ -14,6 +14,9 @@
 - 分辨率高，具有颜色信息
 - 
 
+### cv2
+自适应背景混合模型(cv2.createBackgroundSubtractorMOG2)是一种在视频序列中执行背景扣除的流行方法，通常用于监控系统中检测移动物体。
+
 ## sensor fusion
 实现信息ADAS和功能ADAS
 
