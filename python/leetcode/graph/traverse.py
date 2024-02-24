@@ -33,17 +33,21 @@ def traverse_visit(graph, start):
 
 # BFS遍历有环图
 def traverse_visit_bfs(graph, start):
+    global hasCycle
     queue = []
     depth = 0
     queue.append(start)
     while(len(queue) != 0):
-        node = queue.pop(0)
-        if(node in visited):
-            continue
-        visited.add(node)
-        for neighbor in graph.get(node, []):
-            queue.append(neighbor)
+        size = len(queue)
         depth += 1
+        for _ in range(size):
+            node = queue.pop(0)
+            if(node in visited):
+                continue
+            visited.add(node)
+            for neighbor in graph.get(node, []):
+                queue.append(neighbor)
+        
 
 def check_cycle(graph):
     for node in graph:

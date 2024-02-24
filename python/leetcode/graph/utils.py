@@ -1,7 +1,7 @@
 
 class Graph:
     def __init__(self):
-        self.graph = {}
+        self.graph = {} # 邻接表表示
 
     def add_edge(self, node, neighbour):  
         if node not in self.graph:

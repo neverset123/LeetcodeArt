@@ -34,16 +34,42 @@ use heuristic function to estimate the cost to the goal and explores the path wi
 2) dynamic programming
 key idea is to break down a complex problem into simpler subproblems, solve each of these subproblems just once and store their solutions. If same subproblem occurs, the previously calculated solution is used.
 
+3) D star
+it is extension of A star with dynamic edge costs. it solves path from the goal to the start(backward algorithm), it only update parts of the graph that are affected by the change in the environment.
+- D Lite: it solves path from the start to the goal(forward algorithm)
+
 #### continuous (focus on sample based)
 random exploration of the configuration and input space. probabilistic graph search methods are RRt, RRT*, PRM.
+
 1) hybrid A star 
 while classic A star works on a grid and assums that vehicle can move in any direction at each grid point, the hybrid A star takes into account the vehicle's kinematics, i.e. the vehicle's physical constraints such as nonholonomic and minimum turing radius, and it memorizes the exact position of vehicle continuously. it is free-form planning suitable for unstructured environments (less specific rules and lower speeds, no obvious reference path), not for structured environments(predefined rules: direction of traffic, lane boundaries, speed limits; road structure can be used as a reference)
+
 2) polynomial trajectory generation(PTG)
 it is suitable for structured environments. it samples a large number of n configuration on the approximate desired position, and generate the jerk minimized trajectories for each goal configuration, then discard all nondrivable trajectories(collision with road boundary or with other vehicle from prediction). By ranking all remaining trajectories with cost function(lat/lon jerk, distance to obstacles, distance to center line, time to go) we can obtain the optimuum trajectory.
 principals:
 - continuity(position, speed)
 - smoothness(jerk minimizing: coefficient of item higher than 6 should be 0) -> minimum 1d jerk trajectories: $s(t)=a_0+a_1*t+a_2*t^2+a_3*t^3+a_4*t^4+a_5*t^5$ (6 boundary conditions[start/end position velocity acceleration] will beused to solve the 5 degree polynominal[quintic polynominal]).
 - feasibility: max/min velocity, max/min acceleration, steering angle.
+
+3) RRT
+it works by randomly exploring the search space and incrementally building a tree of paths. advantages are: ability to quickly explore large search space(suitable for real time application).
+steps:
+- start with a tree containing only the starting point
+- select a random point in the search space and find closed node in the tree to this random point
+- create a new node in the direction of the random point at a specified distance away. If the new node does not violate the constraints (for example, it does not collide with an obstacle), it is added to the tree. 
+- repeated until the tree reaches the end point or a maximum number of nodes have been added.
+
+RRT* is an extension of RRT, which refine the generated tree in roder to find a more optimal path.
+it continually refines the tree as more points are added. 
+- find existing nodes in tree that are nearby the new node
+    - if the path is shorter to existing nodes through new node, then reassigns the parent of those nodes to the new node
+    - if the path is shorter to new node through nearby existing node, then reassigns the parent of new node to the nearby node
+
+4) PRM
+PRM is sampled based method that constructs a roadmap in the configuration space, suitable for high-dimensional spaces.  it's particularly effective in environments where the free space is "loosely" connected. However, it can struggle in environments where the free space is "tightly" connected, such as narrow passages.
+- sampling: randomly sampling a set of configuration and check if they are in free space
+- local planner: connect each node to other nodes in the roadmap (eg. nearest neighbors) and check if path between two nodes is in free apace
+- graph search: use graph search algo to find shortest path between start and goal nodes
 
 ### Prediction
 it takes input from map of the world and sensor fusion data, generates state of the world of all vehicles and moving objects. it is represented by state of possible trajectories. Multi-object interaction can become much complexer during prediction.
