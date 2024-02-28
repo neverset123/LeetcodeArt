@@ -1,4 +1,11 @@
 import matplotlib.pyplot as plt
+
+# config parameters
+plt.rcParams['figure.figsize'] = (10, 6)
+
+# config decoration
+plt.gca().set(title='title', xlabel='x', ylabel='y') # gca = get current axis
+
 ## box plot
 ## it shows the median, the 25th and 75th percentiles as boxes, and the whiskers that extend to the furthest data point that is within 1.5 times the interquartile range
 plt.boxplot(array1)
@@ -18,6 +25,7 @@ plt.show()
 
 ## scatter plot
 plt.scatter(array1, array2)
+plt.scatter("x", "y", data=df)
 plt.show()
 
 ## 折线图
