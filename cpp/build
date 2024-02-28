@@ -1,8 +1,9 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_binary(
     name = "example",
     srcs = [ 
-       "leetcode/binary_tree/3_breadth_first_search.cpp",
-       # "basics/sort/mergesort.cpp",
+    #    "leetcode/binary_tree/3_breadth_first_search.cpp",
+       "basics/sort/mergesort.cpp",
     ],
     includes = glob(["leetcode/**/*.h"],),
     visibility = ["//visibility:public"],
