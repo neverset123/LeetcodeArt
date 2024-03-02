@@ -76,7 +76,7 @@ F.sigmoid()
 F.softmax()
 tensor.grad #查看tensor的梯度
 
-## 4. build NN model
+## 搭建模型
 from torch import nn
 class Model(nn.Module):
     def __init__(self):
