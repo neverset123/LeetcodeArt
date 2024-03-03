@@ -1,2 +1,2 @@
 # set compiler
-build --compiler=mingw-gcc
+build --compiler=mingw-gcc --cxxopt='-std=c++17'
