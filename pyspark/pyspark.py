@@ -43,8 +43,8 @@ rdd.sortBy(lambda row: row["col1"], ascending=False) # 按照第一列降序排�
 rdd.sortBy(lambda row: (row["col1"], row["col2"])) # 按照第一列升序，第二列升序排序
 
 ## 过滤
-df.filter(df["col1"] > 1) # df使用条件表达式过滤
-df.filter("col1 > 1") # df使用字符串过滤
+df.filter((df["col1"] > 1) & (df["col2"] >1)) # df使用条件表达式过滤
+df.filter("col1 > 1 and col2 > 1") # df使用字符串过滤
 
 df.rdd.filter(lambda row: row["col1"] > 1) # rdd使用函数过滤
 

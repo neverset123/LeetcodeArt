@@ -19,6 +19,9 @@ UPDATE test.t SET c =(IF(c = 'a', 'd', 'e'));
 DELETE FROM test.t WHERE c = 'a';
 DELETE t1 FROM test.t t1, test.t t2 WHERE t1.c1 = t2.c1 AND t1.id > t2.id; -- 删除重复行
 DROP DATABASE IF EXISTS test;
+DROP TABLE IF EXISTS test.t;
+
+COPY test.t FROM '/path/to/file.csv' WITH csv; -- 从文件中导入数据
 
 WITH t1 AS (SELECT * FROM t WHERE c1 = 1), t2 AS (SELECT * FROM t WHERE c1 = 2) 
 SELECT * FROM t1 UNION ALL SELECT * FROM t2;
@@ -159,6 +162,7 @@ SELECT LAST_VALUE(c) OVER (ORDER BY c) FROM t;
 */
 SELECT c1, COUNT(*) FROM t GROUP BY c1; -- c1 可以是case when结构
 SELECT c1, SUM(c2) FROM t GROUP BY c1; -- c2 可以是case when结构
+SELECT c1, c2, COUNT(*) FROM t GROUP BY c1, c2;
 
 /*
 关联查询
@@ -174,7 +178,7 @@ Union All：合并两个或多个 SELECT 语句的结果集，不去除重复行
 Intersect：交集
 Except：差集
 Minus：差集
-inner join：内连接
+inner join：内连接, default join
 left join：左连接
 right join：右连接
 full join：全连接
@@ -186,6 +190,7 @@ SELECT * FROM t1 INTERSECT SELECT * FROM t2;
 SELECT * FROM t1 EXCEPT SELECT * FROM t2;
 SELECT * FROM t1 MINUS SELECT * FROM t2;
 SELECT * FROM t1 INNER JOIN t2 ON t1.c1 = t2.c1; /* avoid select * to avoid duplicating the joined key in result */
+SELECT * FROM t1 LEFT JOIN t2 using (c1); /* using表示两个表中的列名相同 */
 
 
 /*
