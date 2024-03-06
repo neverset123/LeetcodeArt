@@ -1,6 +1,7 @@
 /*
 创建数据库
 创建临时表
+STRIGN不支持所有的数据库，因此需要使用VARCHAR 
 */
 CREATE DATABASE IF NOT EXISTS test;
 CREATE TABLE IF NOT EXISTS test.t (c1 INT PRIMARY KEY, c2 STRING NOT NULL UNIQUE); /* constraint t non null and unique in table*/
