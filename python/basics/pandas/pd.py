@@ -29,6 +29,8 @@ df.to_json(filename)
 writer=pd.ExcelWriter('test.xlsx',index=False) 
 df.to_excel(writer,sheet_name='sheet1')
 writer.save()
+data_dict = df.to_dict("records") #将DataFrame转换为字典列表
+yaml.dump(data_dict, open("data.yaml", "w"), sort_keys=False) #将DataFrame转换为yaml格式
 
 #查看数据
 df.head(n) # 查看DataFrame对象的前n⾏

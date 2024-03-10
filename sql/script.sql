@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS test.t (c1 INT PRIMARY KEY, c2 STRING NOT NULL UNIQUE
 CREATE TABLE IF NOT EXISTS test.t (c1 INT, c2 STRING, PRIMARY KEY(c1, c2)); /* composite key to guarantee uniqueness*/
 CREATE TABLE IF NOT EXISTS test.t (c1 INT, c2 STRING, PRIMARY KEY((c1),c2)); /* primary key made up of partition key and clustering key in cassandra*/
 CREATE TABLE IF NOT EXISTS test.t (c1 INT REFERENCES t1(c1), c2 STRING, PRIMARY KEY(c1, c2)); /* foreign key reference*/
+CREATE EXTERNAL TABLE IF NOT EXISTS test.t (c1 INT, c2 STRING) LOCATION '/path/to/data'; /* external table*/
 ALTER TABLE test.t ADD COLUMNS (c3 INT);
 ALTER TABLE test.t Modify COLUMN c3 STRING;
 INSERT INTO test.t VALUES (1, 'a'), (2, 'b'), (3, 'c');
