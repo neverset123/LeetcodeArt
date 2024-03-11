@@ -28,6 +28,17 @@ COPY test.t FROM '/path/to/file.csv' WITH csv; -- 从文件中导入数据
 WITH t1 AS (SELECT * FROM t WHERE c1 = 1), t2 AS (SELECT * FROM t WHERE c1 = 2) 
 SELECT * FROM t1 UNION ALL SELECT * FROM t2;
 
+--创建external table
+CREATE EXTENSION IF NOT EXISTS file_fdw;
+CREATE SERVER csv_files FOREIGN DATA WRAPPER file_fdw;
+CREATE FOREIGN TABLE my_external_table (
+    column1 INT,
+    column2 VARCHAR(255),
+    column3 DATE
+)
+SERVER csv_files
+OPTIONS (format 'csv', filename '/path/to/your/file.csv', delimiter ',', header 'true');
+
 /*
 随机抽样：TABLESAMPLE BERNOULLI(10) 表示随机抽取10%的数据
 RAND()：返回一个0到1之间的随机数
@@ -60,7 +71,7 @@ SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY c) FROM t;
 /*
 字段处理
 EXTRACT：提取日期中的年、月、日、时、分、秒、星期，季度等
-DATEDIFF：计算两个日期之间的天数，参数1-参数2
+DATEDIFF：计算两个日期的差，参数2-参数1
 DATESUB：日期减去一个时间间隔，参数1-参数2
 DATEADD：日期加上一个时间间隔，参数1+参数2
 CONCAT：连接字符串（或者用+代替）
@@ -78,7 +89,7 @@ SUBSTRING_INDEX：截取字符串，第三个参数为第几次出现的分隔�
 */
 SELECT EXTRACT(YEAR FROM c) FROM t;
 SELECT EXTRACT(ISODOW FROM c) FROM t; -- 1-7表示周一到周日
-SELECT DATEDIFF('2019-01-01', '2019-01-02') FROM t;
+SELECT DATEDIFF(MINUTE, '2019-01-01', '2019-01-02') FROM t;
 SELECT DATESUB('2019-01-01', INTERVAL 1 DAY) FROM t;
 SELECT DATEADD('2019-01-01', INTERVAL 1 DAY) FROM t;
 
