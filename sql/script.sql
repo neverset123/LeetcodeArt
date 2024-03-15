@@ -100,10 +100,10 @@ SELECT GROUP_CONCAT(c1, ":", c2 SEPARATOR ',') AS "c1:c2" FROM t;
 SELECT LENGTH(c) FROM t;
 SELECT LOWER(c) FROM t;
 SELECT UPPER(c) FROM t;
-SELECT TRIM(c) FROM t;
-SELECT LTRIM(c) FROM t;
-SELECT RTRIM(c) FROM t;
-SELECT REPLACE(c, 'a', 'b') FROM t;
+SELECT TRIM(c) FROM t; -- 去除首尾空格 
+SELECT LTRIM(c) FROM t; -- 去除首部空格
+SELECT RTRIM(c) FROM t; -- 去除尾部空格
+SELECT REPLACE(c, 'a', 'b') FROM t; -- 将a替换为b
 SELECT SUBSTRING(c, 1, 2) FROM t; -- 从第1个字符开始截取2个字符
 SELECT SUBSTRING_INDEX(c, ',', 1) FROM t; -- 从左往右截取第1次出现的逗号之前的字符串
 SELECT c1 FROM t WHERE mod(id, 2) = 0; -- 取偶数行

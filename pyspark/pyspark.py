@@ -3,8 +3,8 @@
 # DataFrame转换得到的RDD中的元素是Row对象，每个Row对象代表DataFrame中的一行,
 #需要先使用 rdd.map(lambda row: (row["column1"], row["column2"])) 的操作来将Row对象转换为更容易处理的数据结构（如 tuple）
 from pyspark.sql import Row
-df = spark.table("table1") # 读取表
-df = spark.read.format("csv").option("header", "true").option("sep", ",").load("data.csv") 
+df = spark.read.format("csv").option("inferSchema", "false").option("header", "true").option("sep", ",").load("data.csv") 
+df= spark.read.format("delta").load("path") # 读取delta lake data
 df = spark.read.csv('data.csv', header=True, inferSchema=True)
 df = spark.createDataFrame([("a", 1), ("b", 2)], ["letter", "number"])
 df = spark.createDataFrame([Row(a=1, b=2, c=3), Row(a=4, b=5, c=6)])
@@ -19,9 +19,11 @@ sc.parallelize([1, 2, 3, 4, 5]) # 创建RDD
 df.printSchema() # 查看df的schema
 df.discribe("col1") # 查看df的统计信息
 df.col.value_counts() # 查看df的col的频数
-df.cache() # 缓存
+df.cache() # 缓存到memory and disk
+df.persist(StorageLevel.DISK_ONLY) # 缓存到disk
 df.unpersist() # 取消缓存
-rdd.cache() # 缓存
+rdd.cache() # 缓存到memory and disk
+rdd.persist(StorageLevel.DISK_ONLY) # 缓存到disk
 rdd.unpersist() # 取消缓存
 
 broadcastVar = sc.broadcast([1, 2, 3, 4, 5]) # 广播变量
@@ -29,8 +31,8 @@ broadcastVar.value # 获取广播变量的值
 
 df.write.format("csv").mode("overwrite").save("data.csv")
 df.write.save("data.csv", format="csv", header= True) # 保存df
-df.write.format("delta").mode("overwrite").save("path") # 保存df为delta格式
-df.write.format("delta").mode("overwrite").saveAsTable("table1") # 保存df为表
+df.write.format("delta").mode("overwrite").save("path") # 保存df为delta lake data, 使用append模式可以追加数据
+df.write.format("delta").mode("overwrite").saveAsTable("table1") # 保存df为delta lake table, 使用append模式可以追加数据
 
 ## indexing
 df.first() # 返回第一行
@@ -48,15 +50,15 @@ df.dropna(how="any", subset=["col1", "col2"]) # 删除空值
 df.na.drop() # 删除空值
 df.na.fill(0) # 填充空值
 df.na.replace(1, 2) # 替换值
-df.dropDuplicates() # 删除重复值
+df.dropDuplicates(df.columns) # 删除重复值
 
-df.withColumn("hash", F.sha2(F.concat_ws("||", *df.columns), 256)) # 添加hash列
+df.withColumn("hash", F.sha2(F.concat_ws("||", *df.columns), 256)) # 创建table key, 分隔符为"||", 使用sha2加密, 256位
 
 df.repartition(number_of_workers) # 重新分区
 
 
 ## 合并数据f
-df1.union(df2) # 行合并
+df1.union(df2) # 行合并, 没有去重功能
 df1.join(df2, df1["col1"] == df2["col1"], "inner") # 列合并， inner, outer, left, right 默认inner
 df1.join(F.broadcast(df2), df1["col1"] == df2["col1"], "inner") # 广播变量合并, 适用于小表合并大表
 
@@ -109,7 +111,7 @@ df.select(F.col("col1").cast("int")) # 类型转换
 df.select(F.col("col1").isNull()) # 判断是否为空
 df.select(F.col("col1").between(1, 2)) # 判断是否在区间内
 df.select(F.col("col1").like("a%")) # 判断是否匹配
-df.select(F.col("col1").substr(1, 2)) # 截取字符串
+df.select(F.col("col1").substr(1, 2)) # 截取字符串  substr(col, pos, len)
 
 df.withColumn("new_col1", F.when(df["col1"] > 1, 1).when(df["col1"] < 1, -1).otherwise(0)) # 条件选择
 df.withColumn("new_col1", F.concat(df["col1"], df["col2"])) # 字符串拼接
@@ -131,7 +133,9 @@ def pandas_udf_func(df):
     return pd.Series(df + 1)
 
 ## table
-spark.sql("create table table1 using delta location 'delta data path'") # 由delta data快速创建表
+spark.sql("create table table1 using delta location 'delta data path'") # 通过sql创建delta table， 等效于saveAsTable
+spark.sql("drop table if exists table1") # 删除表
+df = spark.table("table1") # 读取表数据到df
 
 df.createOrReplaceTempView("table1") # 注册临时表
 df_sql = spark.sql("select * from table1 where col1 > 1") # 执行sql语句
