@@ -1,28 +1,19 @@
 ## 当数组作为参数传递时，它会被转换为指向第一个元素的指针
 
-## indexing
-1. vector
-vec1[i]
-2. VectorXd
-vecxd(i)
-3. MatrixXd
-matxd(i,j)
-
-## erase iterator in for loop
-
-```
-for (auto it = m.cbegin(); it != m.cend() /* not hoisted */; /* no increment */)
-{
-  if (must_delete)
-  {
-    m.erase(it++);    // or "it = m.erase(it)" since C++11
-  }
-  else
-  {
-    ++it;
-  }
-}
-```
+## erase iterator will automatically set iterator to the next item
 
 ## NULL
 NULL在cpp中被定义为0， 所以if(NULL)为假
+
+## 引用
+对于基本数据类型（如int，double等），通常不建议使用引用。这是因为：
+- 基本数据类型的大小通常很小，直接传递值的开销并不大。而引用实际上是通过指针来实现的，所以使用引用可能会增加额外的解引用操作，这可能会导致更大的开销。
+- 使用引用可能会导致意外的副作用。如果函数修改了引用的值，那么原始变量的值也会被修改。这可能会导致难以预见的结果，特别是在大型项目中
+
+## 范围for循环
+与for循环属于不同的循环结构，在不关心迭代索引的情况下推荐使用范围for循环。
+
+## <<和>>
+- >>提取运算符，用于从输入流中读取数据(遇空格停止, 同时返回istringstream结构)
+- <<插入运算符，用于向输出流写入数据
+ 

@@ -31,7 +31,7 @@ int main() {
     vector<int> nums = {1, 2, 3};
     permutation p;
     vector<vector<int>> res = p.permute(nums);
-    for (auto r : res) {
+    for (auto& r : res) { // auto& is used to avoid copying
         for (auto i : r) {
             cout << i << " ";
         }

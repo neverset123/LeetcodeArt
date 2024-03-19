@@ -1,6 +1,8 @@
 ## bazel
 当前项目由bazel构建
 ```
+# add 'C:\msys64\mingw64\bin' and 'C:\MinGW\bin' to PATH
+# set BAZEL_SH to  'C:\msys64\usr\bin\bash.exe'
 bazel run :example
 ```
 ## c++ 17
