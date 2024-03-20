@@ -5,18 +5,15 @@
 
 using std::vector;
 
-class HBF {
+class HBF { // Hybrid Breadth-First
  public:
-  // Constructor
-  HBF();
 
-  // Destructor
+  HBF();
   virtual ~HBF();
 
-  // HBF structs
   struct maze_s {
-    int g;  // iteration
-    int f;
+    int g; 
+    int f; // f = g + heuristic_value
     double x;
     double y;
     double theta;
@@ -28,7 +25,6 @@ class HBF {
     maze_s final;
   };
   
-  // HBF functions
   int theta_to_stack_number(double theta);
 
   int idx(double float_num);
@@ -51,17 +47,12 @@ class HBF {
   const double LENGTH = 0.5;
 };
 
-// Initializes HBF
-HBF::HBF() {}
-
-HBF::~HBF() {}
-
 bool HBF::compare_maze_s(const HBF::maze_s &lhs, const HBF::maze_s &rhs) {
   return lhs.f < rhs.f;
 }
 
 double HBF::heuristic(double x, double y, vector<int> &goal){
-  return fabs(y - goal[0]) + fabs(x - goal[1]); //return grid distance to goal
+  return fabs(y - goal[0]) + fabs(x - goal[1]);
 }
 
 int HBF::theta_to_stack_number(double theta){
@@ -81,7 +72,6 @@ int HBF::idx(double float_num) {
   //   index 3.
   return int(floor(float_num));
 }
-
 
 vector<HBF::maze_s> HBF::expand(HBF::maze_s &state, vector<int> &goal) {
   int g = state.g;
@@ -141,13 +131,6 @@ vector< HBF::maze_s> HBF::reconstruct_path(
 
 HBF::maze_path HBF::search(vector< vector<int> > &grid, vector<double> &start, 
                            vector<int> &goal) {
-  // Working Implementation of breadth first search. Does NOT use a heuristic
-  //   and as a result this is pretty inefficient. Try modifying this algorithm 
-  //   into hybrid A* by adding heuristics appropriately.
-
-  /**
-   * TODO: Add heuristics and convert this function into hybrid A*
-   */
   vector<vector<vector<int>>> closed(
     NUM_THETA_CELLS, vector<vector<int>>(grid[0].size(), vector<int>(grid.size())));
   vector<vector<vector<maze_s>>> came_from(

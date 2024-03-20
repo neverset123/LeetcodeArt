@@ -1,3 +1,5 @@
+## size_t
+size_t是一种无符号整数类型，它在C++中被广泛用于表示大小和计数，特别是在涉及到数组索引和内存大小的情况下。
 ## string
 ### Streaming
 istringstream str(a);
@@ -52,6 +54,13 @@ Eigen::MatrixXd mat(2, 2); // create a 2x2 matrix
 mat << 1, 2,
        3, 4; // assign values to the matrix
 ```
+## map(hast table, hash map, dictionary)
+```
+std::unordered_map map;
+map.find(key) // returns map.end() if key not found, otherweise return an iterator
+```
+
+
 
 
 

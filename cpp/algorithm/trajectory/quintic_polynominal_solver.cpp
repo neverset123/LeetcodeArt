@@ -9,9 +9,7 @@ using std::vector;
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
-/**
- * TODO: complete this function
- */
+
 vector<double> JMT(vector<double> &start, vector<double> &end, double T) {
   /**
    * Calculate the Jerk Minimizing Trajectory that connects the initial state
