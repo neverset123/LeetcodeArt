@@ -4,6 +4,13 @@
 # add 'C:\msys64\mingw64\bin' and 'C:\MinGW\bin' to PATH
 # set BAZEL_SH to  'C:\msys64\usr\bin\bash.exe'
 bazel run :example
+
+# build debug
+# cd  C:\msys64\mingw64\x86_64-w64-mingw32\lib\
+# strip -d crt2.o
+# gcc basics\main.cpp -o main.exe -lstdc++ -g
+# dgb main.exe
+bazel build -c dbg :example
 ```
 ## c++ 17
 C++11 标志着现代 C++的开端，C++14 在 11 的基础上查缺补漏，并未加入许多新特性，而 C++17 作为 C++11 后的第一个大版本，标志着现代 C++逐渐走向成熟。
@@ -13,6 +20,7 @@ C++11 标志着现代 C++的开端，C++14 在 11 的基础上查缺补漏，并
 - if 初始化语句
 - std::string_view
 - std::any: 相比于void*更安全
+- 强制执行copy elision
 
 ## 算法
 算法的本质就是**穷举**，这点跟数学是不一样的。

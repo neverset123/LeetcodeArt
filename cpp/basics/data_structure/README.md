@@ -6,6 +6,8 @@ istringstream str(a);
 ### 字符转字符串
 char c = 'a';
 std::string str(1, c);
+### std::string 转c_str
+const char* cstr = str.c_str()
 ### 添加和删除字符
 str.push_back("a")
 str.pop_back()

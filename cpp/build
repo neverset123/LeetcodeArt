@@ -7,8 +7,8 @@ cc_binary(
        # "basics/search/binary_search.cpp",
        # "leetcode/string/sliding_windows.cpp",
        # "leetcode/double_pointer/left_right_pointer.cpp",
-       "leetcode/back_tracking/permutation.cpp",
-        # "basics/main.cpp"
+    #    "leetcode/back_tracking/permutation.cpp",
+        "basics/main.cpp"
     ],
     includes = glob(["leetcode/**/*.h"],),
     visibility = ["//visibility:public"],

@@ -1,2 +1,2 @@
 ## A start search
-![](../../../docs/a-star-code-structure.png)
+![](../../../docs/img/a-star-code-structure.png)
